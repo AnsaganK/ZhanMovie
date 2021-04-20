@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+{% trans 'Результаты поиска' %}
+{% endblock %}
+
+{% block head %}
+
+
+<style>
+    .movies_grid{
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="movie_detail">
+    <h4 class="alert_title">{% trans 'Результаты поиска:' %} {{query}}</h4>
+    <div class="movies_grid">
+        <div class="movies_grid" style="width:100%;">
+            {% for movie in data %}
+            <div class="movie_block">
+                <a href="{{ movie.get_absolute_url }}">
+                    <img class="movie_img" src="{% if movie.poster %}{{ movie.poster.url }}{% else %}{% static 'img/video.png' %}{% endif %}">
+                    <div>
+                        <span class="movie_year">{{ movie.year }}</span>
+                        <span class="movie_title">{{ movie.title }}</span>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        {% include 'include/pagination.html' with page=data %}
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+{% trans 'Настройки сайта' %}
+{% endblock %}
+
+{% block content %}
+<div class="movie_detail">
+    <div class="settings">
+        {% include 'include/settings_menu.html' %}
+        <div class="settings content">
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

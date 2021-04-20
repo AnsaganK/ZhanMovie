@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load movie_tags %}
+
+{% block title %}
+Главная
+{% endblock %}
+
+
+{% block content %}
+
+{% include 'include/movie_slider.html' %}
+<div class="content">
+    {% include 'include/menu.html' %}
+    <div class="general_page">
+        <span class="welcome_title">Добро пожаловать на сайт <img src="{% static 'img/logo_new.png' %}" alt=""
+                                                                  height="40px"></span>
+        <p class="welcome_text">Приветствуем вас в нашем виртуальном кинотеатре ZhanFilm. Мы постарались создать портал,
+            который точно придётся по душе многим и сможет предоставить доступ к любым фильмам. На ZhanFilm не требуется
+            проходить регистрацию или платить за просмотр. Начать наслаждаться интересующей лентой вы можете в считанные
+            секунды. Не нужно слишком долго разбираться со всеми нюансами, достаточно всего лишь вбить в поле поиска
+            название и забыть о проблемах. Все представленное кино в хорошем качестве.
+            ZhanFilm - Смотреть фильмы онлайн бесплатно
+            Современную жизнь сложно представить без кино. Многие хотят постоянно следить за новинками, чтобы потом
+            иметь возможность обсудить понравившиеся картины с друзьями. Однако далеко не каждый человек готов ходить в
+            кинозал, ведь это порой вызывает много трудностей. Цена на билет сильно кусается, а сосед постоянно что-то
+            ест или обсуждает фильм со своим другом. Всё это сильно отвлекает от просмотра и не даёт возможности
+            полностью окунуться в мир кинематографа. Именно поэтому смотреть фильмы онлайн на нашем сайте очень удобно.
+        </p>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+    $('#carousel-example').on('slide.bs.carousel', function (e) {
+        var $e = $(e.relatedTarget);
+        var idx = $e.index();
+        var itemsPerSlide = 5;
+        var totalItems = $('.carousel-item').length;
+
+        if (idx >= totalItems - (itemsPerSlide - 1)) {
+            var it = itemsPerSlide - (totalItems - idx);
+            for (var i = 0; i < it; i++) {
+                // append slides to end
+                if (e.direction == "left") {
+                    $('.carousel-item').eq(i).appendTo('.carousel-inner');
+                } else {
+                    $('.carousel-item').eq(0).appendTo('.carousel-inner');
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

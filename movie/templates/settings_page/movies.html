@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load movie_tags %}
+
+{% block title %}
+{% trans 'Настройки сайта' %}
+{% endblock %}
+
+{% block content %}
+<div class="movie_detail">
+    <div class="settings">
+        {% include 'include/settings_menu.html' %}
+        <div class="settings_content">
+            <table class="settings_table">
+                <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Категория</th>
+                    <th>Жанры</th>
+                    <th>Действие</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for movie in movies %}
+                <tr>
+                    <td><a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a></td>
+                    <td>{{ movie.category }}</td>
+                    <td>{{ movie.genres.all|refactorList }}</td>
+                    <td><a href="">Изменить</a> | <a href="">Удалить</a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

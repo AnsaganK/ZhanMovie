@@ -1,0 +1,340 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load movie_tags %}
+{% load i18n %}
+
+{% block head %}
+<style>
+.form_item input, .form_item textarea, .form_item select {
+    width: 300px;
+}
+
+.form_item .filter_items {
+    width: 71%;
+}
+
+.review_form{
+    padding:10px;
+    width:100%;
+    max-width:800px;
+    border:1px solid wheat;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    margin:auto;
+}
+.review_form button{
+    padding: 5px 20px;
+    margin: 10px auto;
+    background: wheat;
+    border-radius: 10px;
+    box-shadow: 0px 0px 6px #1d1d1d;
+    border: 0px solid #ffc48b;
+}
+.review_form_item{
+    display: flex;
+    margin:10px;
+}
+
+
+.movie_reviews_title{
+    color:wheat;
+    text-align:center;
+    margin-top:20px;
+}
+
+.review_form_item label{
+    width:130px;
+    color:wheat;
+}
+.review_form_item input, .review_form_item textarea{
+    width:100%;
+}
+.review_item{
+    border:1px solid grey;
+    padding:10px;
+    color:white;
+    max-width:800px;
+    margin:20px auto;
+}
+.reviewer_user_info{
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px solid grey;
+}
+.reviewer_user_info i{
+    color:wheat;
+}
+.reviewer_user_info span{
+    color:grey;
+}
+.review_text{
+    margin-top:10px;
+    padding-left:10px;
+}
+
+
+</style>
+{% endblock %}
+
+{% block title %}
+{{ movie.title }}
+{% endblock %}
+
+{% block content %}
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Изменить</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form action="{% url 'movie_update' movie.pk %}" method="post" class="movie_add_form"
+                  enctype="multipart/form-data">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <div class="tabs">
+                        <input type="radio" name="tab-btn" id="tab-btn-1" value="" checked>
+                        <label for="tab-btn-1">Русский</label>
+                        <input type="radio" name="tab-btn" id="tab-btn-2" value="">
+                        <label for="tab-btn-2">English</label>
+                        <input type="radio" name="tab-btn" id="tab-btn-3" value="">
+                        <label for="tab-btn-3">Қазақ</label>
+
+                        <div id="content-1" class="form_content">
+                            <div class="form_item"><label for="">Название</label><input type="text" name="title_ru"
+                                                                                        placeholder="Название на русском"
+                                                                                        value="{{ movie.title_ru }}">
+                            </div>
+                            <div class="form_item"><label for="">Слоган</label><textarea name="tagline_ru" id=""
+                                                                                         rows="2"
+                                                                                         placeholder="Слоган на русском"
+                                                                                         pytonh>{{ movie.tagline_ru }}</textarea>
+                            </div>
+                            <div class="form_item"><label for="">Описание</label><textarea name="description_ru" id=""
+                                                                                           rows="7"
+                                                                                           placeholder="Описание на русском">{{ movie.description_ru }}</textarea>
+                            </div>
+                        </div>
+                        <div id="content-2" class="form_content">
+                            <div class="form_item"><label for="">Название</label><input type="text" name="title_en"
+                                                                                        placeholder="Название на английском"
+                                                                                        value="{{ movie.title_en }}">
+                            </div>
+                            <div class="form_item"><label for="">Слоган</label><textarea name="tagline_en" id=""
+                                                                                         rows="2"
+                                                                                         placeholder="Слоган на английском">{{ movie.tagline_en }}</textarea>
+                            </div>
+                            <div class="form_item"><label for="">Описание</label><textarea name="description_en" id=""
+                                                                                           rows="7"
+                                                                                           placeholder="Описание на английском">{{ movie.description_en }}</textarea>
+                            </div>
+                        </div>
+                        <div id="content-3" class="form_content">
+                            <div class="form_item"><label for="">Название</label><input type="text" name="title_kk"
+                                                                                        placeholder="Название на казахском"
+                                                                                        value="{{ movie.title_kk }}">
+                            </div>
+                            <div class="form_item"><label for="">Слоган</label><textarea name="tagline_kk" id=""
+                                                                                         rows="2"
+                                                                                         placeholder="Слоган на казахском">{{ movie.tagline_kk }}</textarea>
+                            </div>
+                            <div class="form_item"><label for="">Описание</label><textarea name="description_kk" id=""
+                                                                                           rows="7"
+                                                                                           placeholder="Описание на казахском">{{ movie.description_kk }}</textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form_content">
+                        <div class="form_item"><label for="">Актеры</label><textarea name="actors_list" id=""
+                                                                                     rows="5">{{ movie.actors_list }}</textarea>
+                        </div>
+                        <div class="form_item"><label for="">Режиссеры</label><textarea name="directors_list" id=""
+                                                                                        rows="5">{{ movie.directors_list }}</textarea>
+                        </div>
+                        <div class="form_item"><label for="">Страны</label>
+                            <div class="filter_items">
+                                {% for country in countries %}
+                                <div class="filter_item">
+                                    <input class="filter_item_input" type="checkbox" name="country_{{country.pk}}"
+                                           id="country_{{country.pk}}" {% if country.pk in countriesIds %}checked{% endif %}>
+                                    <label for="country_{{country.pk}}" class="filter_item_label">{{ country.name
+                                        }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="form_item"><label for="">Категория</label>
+                            <select name="category" id="">
+                                {% for category in categories %}
+                                <option value="{{ category.pk }}" {% if movie.category.pk == category.pk %} selected {% endif %}>{{ category.name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form_item"><label for="">Постер</label><input name="poster" type="file"></div>
+                        <div class="form_item"><label for="">Видеофайл</label><input name="video" type="file"></div>
+                        <div class="form_item"><label for="">Ссылка на видео</label><input name="video_url" type="url"
+                                                                                           value="{% if movie.video_url %}{{ movie.video_url }}{% endif %}">
+                        </div>
+                        <div class="form_item"><label for="">Жанры</label>
+                            <div class="filter_items">
+                                {% for genre in genres %}
+                                <div class="filter_item">
+                                    <input class="filter_item_input" type="checkbox" name="genre_{{genre.pk}}"
+                                           id="genre_{{genre.pk}}" {% if genre.pk in genresIds %}checked{% endif %}>
+                                    <label for="genre_{{genre.pk}}" class="filter_item_label">{{ genre.name }}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="form_item">
+                            <label for="">{% trans 'Премьера в мире' %}</label><input name="world_premiere" type="date"
+                                                                                      value="{{ movie.world_premiere.year|validDate }}-{{ movie.world_premiere.month|validDate }}-{{ movie.world_premiere.day|validDate }}">
+                        </div>
+                        <div class="form_item">
+                            <label for="">Год</label><input type="number" name="year" style="text-align: center"
+                                                            value="{{ movie.year }}">
+                        </div>
+                        <div class="form_item">
+                            <label for="">Показывать в слайдере</label><input name="best" type="checkbox"
+                                                                              style="text-align: center" {% if movie.best %} checked {% endif %}>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-danger">Изменить</button>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Подтвердите удаление</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Удаленные фильмы невозможно востановить, если же вам нужно скрыть фильм не удаляя тогда воспользуйтесь
+                архивом
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <form action="{% url 'movie_delete' movie.pk %}" method="get">
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="movie_detail">
+    <div class="movie_info_block">
+        <img src="{% if movie.poster %}{{ movie.poster.url }}{% else %}{% static 'img/video.png' %}{% endif %}" alt=""
+             height="400px" width="300" class="movie_detail_img">
+        <div class="movie_info">
+            {% if request.user|isRole:"Админ" %}
+            <div class="movie_control">
+                {% if movie.archive %}
+                <a href="{% url 'movie_remove_archive' movie.pk %}" class="movie_archive_link"
+                   style="background-color:#00bf52;">Опубликовать</a>
+                {% else %}
+                <a href="{% url 'movie_add_archive' movie.pk %}" class="movie_archive_link">В архив</a>
+                {% endif %}
+                <a href="" data-toggle="modal" data-target="#editModal" class="movie_edit_link">Изменить</a>
+                <a href="" data-toggle="modal" data-target="#exampleModal" class="movie_delete_link">Удалить</a>
+            </div>
+            {% endif %}
+            <ul>
+                <li><span>Название:</span> <span>{{ movie.title }}</span></li>
+                <li><span>Слоган:</span> <span>{% if movie.tagline %}{{ movie.tagline }}{% else %}-{% endif %}</span>
+                </li>
+                <li><span>Год:</span> <span>{{ movie.year }}</span></li>
+                <li><span>Режиссеры:</span> <span>{{ movie.directors_list }}</span></li>
+                <li><span>Актеры:</span> <span>{{ movie.actors_list }}</span></li>
+                <li><span>Страна:</span> <span>{{ movie.countries.all|refactorList }}</span></li>
+                <li><span>Категория:</span> <span>{{ movie.category.name }}</span></li>
+                <li><span>Жанры:</span> <span>{{ movie.genres.all|refactorList }}</span></li>
+                <li><span>Премьера:</span> <span>{{ movie.world_premiere }}</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="movie_description_block">
+        <p class="movie_description">Описание</p>
+        <hr color="grey">
+        <p class="movie_description">{{ movie.description }}</p>
+    </div>
+    {% if movie.images.all %}
+    <div class="movie_image_block">
+        <p class="movie_description">Кадры из фильма</p>
+        <hr color="grey">
+        {% for image in movie.images.all %}
+        <img src="{{ image.url }}" alt="">
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="movie_video_block">
+        {% if movie.video %}
+        <video src="{{ movie.video.url }}" controls></video>
+        {% else %}
+        {% if video_link %}
+        <iframe width="560" height="315" class="video_box" src="https://www.youtube.com/embed/{{video_link}}"
+                title="{{ movie.title }}"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+        </iframe>
+        {% else %}
+        <p class="error404">{% trans 'Видео не найдено' %}</p>
+        {% endif %}
+        {% endif %}
+    </div>
+    <hr color="grey">
+    <div class="movie_reviews_block">
+        <h3 class="movie_reviews_title">Оставить отзыв</h3>
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'review_add' movie.pk %}" class="review_form" method="post">
+            {% csrf_token %}
+           <!-- <div class="review_form_item">
+                <label for="">Ваш ник</label>
+                <input type="text" placeholder="Ник">
+            </div>-->
+            <div class="review_form_item">
+                <label for="">Отзыв</label>
+                <textarea name="text" id="" cols="30" required rows="5" placeholder="Отзыв"></textarea>
+            </div>
+            <button type="submit">Отправить</button>
+        </form>
+        {% else %}
+        <p class="error404">Только авторизованные пользователи могут оставлять отзывы</p>
+        {% endif %}
+        <div class="movie_reviews_list">
+            <h3 class="movie_reviews_title">Отзывы ({{ reviews.count }})</h3>
+            {% for review in reviews %}
+            <div class="review_item">
+                <div class="reviewer_user_info">
+                    <i>{{ review.user.last_name }}  {{ review.user.first_name }}</i>
+                    <span>{{ review.date }}</span>
+                </div>
+                <div class="review_text">
+                    {{ review.text }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

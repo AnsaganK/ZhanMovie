@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Вход
+{% endblock %}
+
+{% block head %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="movie_detail">
+    <div class="login_form">
+        <h3>Вход</h3>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="login_form_item">
+                <label for="">Ник</label>
+                <input type="text" name="username">
+            </div>
+            <div class="login_form_item">
+                <label for="">Пароль</label>
+                <input type="text" name="password">
+            </div>
+            <button type="submit">Войти</button>
+        </form>
+        <a href="{% url 'signup' %}">Нет аккаунта, зарегистрируйтесь</a>
+    </div>
+</div>
+{% endblock %}

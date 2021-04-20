@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Личный кабинет
+{% endblock %}
+
+{% block content %}
+<div class="movie_detail">
+    <h3>Личный кабинет</h3>
+    {{ request.user.username }}
+</div>
+{% endblock %}

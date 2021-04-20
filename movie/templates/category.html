@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+{{ category.title }}
+{% endblock %}
+
+
+{% block content %}
+
+
+{% include 'include/movie_slider.html' %}
+<div class="content">
+    {% include 'include/menu.html' %}
+    <div class="movies_content">
+        <div class="movies_grid">
+            <div class="movies_grid" style="width:100%;">
+                {% for movie in movies %}
+                <div class="movie_block">
+                    <a href="{{ movie.get_absolute_url }}">
+                        <img class="movie_img" src="{% if movie.poster %}{{ movie.poster.url }}{% else %}{% static 'img/video.png' %}{% endif %}">
+                        <div>
+                            <span class="movie_year">{{ movie.year }}</span>
+                            <span class="movie_title">{{ movie.title }}</span>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+
+            </div>
+            {% include 'include/pagination.html' with page=movies %}
+
+        </div>
+        <div class="movie_filter">
+            <form>
+                <span>Жанры</span>
+
+                <div class="filter_items">
+                    {% for genre in genres %}
+                    <div class="filter_item">
+                        <input class="filter_item_input" type="checkbox" name="genre_{{genre.pk}}"
+                               id="genre_{{genre.pk}}">
+                        <label for="genre_{{genre.pk}}" class="filter_item_label">{{ genre.name }}</label>
+                    </div>
+                    {% endfor %}
+
+                </div>
+                <hr color="white">
+                <span>Года</span>
+
+                <div class="filter_items">
+                    {% for year in years %}
+                    <div class="filter_item">
+                        <input class="filter_item_input" type="checkbox" name="year_{{year}}" id="year_{{year}}">
+                        <label for="year_{{year}}" class="filter_item_label">{{ year.year }}</label>
+
+                    </div>
+                    {% endfor %}
+                </div>
+                <hr color="white">
+                <span>Страны</span>
+
+                <div class="filter_items">
+                    {% for country in countries %}
+                    <div class="filter_item">
+                        <input class="filter_item_input" type="checkbox" name="country_{{country.pk}}"
+                               id="country_{{country.pk}}">
+                        <label for="country_{{country.pk}}" class="filter_item_label">{{ country.name }}</label>
+                    </div>
+                    {% endfor %}
+
+                </div>
+                <hr color="white">
+                <span>Рейтинг</span>
+
+                <div class="filter_items filter_stars">
+                    {% for star in stars %}
+                    <div class="filter_item">
+                        <input class="filter_item_input" type="checkbox" name="" id="10">
+                        <label for="10" class="filter_item_label">
+                            {{star}}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="primary_button">Фильтровать</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block script %}
+<script>
+    $('#carousel-example').on('slide.bs.carousel', function (e) {
+        var $e = $(e.relatedTarget);
+        var idx = $e.index();
+        var itemsPerSlide = 5;
+        var totalItems = $('.carousel-item').length;
+
+        if (idx >= totalItems - (itemsPerSlide - 1)) {
+            var it = itemsPerSlide - (totalItems - idx);
+            for (var i = 0; i < it; i++) {
+                // append slides to end
+                if (e.direction == "left") {
+                    $('.carousel-item').eq(i).appendTo('.carousel-inner');
+                } else {
+                    $('.carousel-item').eq(0).appendTo('.carousel-inner');
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

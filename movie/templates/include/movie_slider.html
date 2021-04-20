@@ -1,0 +1,26 @@
+{% load static %}
+
+<div class="movie_slider">
+    <div class="top-content">
+        <div class="container-fluid">
+            <div id="carousel-example" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner row w-100 mx-auto" role="listbox">
+                    {% for movie in best_movies %}
+                    <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 {% if forloop.counter == 1 %} active {% endif %}">
+                        <a href="{{movie.get_absolute_url}}"><img src="{% if movie.poster %}{{ movie.poster.url }}{% else %}{% static 'img/video.png' %}{% endif %}" class="img-fluid mx-auto d-block" alt="img1"><span>{{ movie.title }}</span></a>
+                    </div>
+                    {% endfor %}
+
+                </div>
+                <a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carousel-example" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

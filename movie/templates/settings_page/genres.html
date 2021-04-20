@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+{% trans 'Настройки сайта' %}
+{% endblock %}
+
+{% block content %}
+<div class="movie_detail">
+    <div class="settings">
+        {% include 'include/settings_menu.html' %}
+        <div class="settings_content">
+            <table class="settings_table">
+                <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Кол-во фильмов</th>
+                    <th>Действие</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for genre in genres %}
+                <tr>
+                    <td>{{ genre.name }}</td>
+                    <td>{{ genre.movies.all.count }}</td>
+                    <td><a href="">Изменить</a> | <a href="">Удалить</a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
