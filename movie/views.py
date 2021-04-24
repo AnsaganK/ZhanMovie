@@ -4,8 +4,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
-from movie.forms import MovieForm, ReviewForm, UserForm
-from movie.models import Category, Movie, Genre, Country, Review
+from movie.forms import MovieForm, ReviewForm, UserForm, CategoryForm, GenreForm
+from movie.models import Category, Movie, Genre, Country, Review, Role
 
 
 def index(request):
@@ -44,8 +44,14 @@ def get_right_url_youtube(link):
 
 
 def movie_detail(request, pk):
+    user = request.user
     movie = Movie.objects.get(pk=pk)
 
+    if (user.is_anonymous and movie.subscription == True):
+        return render(request, "errorPage.html")
+    if not user.is_anonymous:
+        if (user.profile.role.name_en == "No subscription" and movie.subscription == True):
+            return render(request, "errorPage.html")
     video_link = None
     if movie.video_url:
         video_link = get_right_url_youtube(movie.video_url)
@@ -154,12 +160,6 @@ def settings_genres(request):
     return render(request, 'settings_page/genres.html', {"genres": genres})
 
 
-def genre_delete(request, pk):
-    genre = Genre.objects.get(pk=pk)
-    genre.delete()
-    return redirect('settings_genres')
-
-
 def settings_movies(request):
     movies = Movie.objects.filter(archive=False)
     return render(request, 'settings_page/movies.html', {'movies': movies})
@@ -173,6 +173,15 @@ def settings_archive(request):
 def settings_users(request):
     users = User.objects.all()
     return render(request, 'settings_page/users.html', {"users": users})
+
+
+def settings_roles(request):
+    roles = Role.objects.all()
+    return render(request, 'settings_page/roles.html', {"roles": roles})
+
+
+def settings_other(request):
+    return render(request, 'settings_page/other.html')
 
 
 def search(request):
@@ -208,28 +217,79 @@ def review_add(request, pk):
             print(form.errors)
     return redirect(movie.get_absolute_url())
 
+
+def userNameValid(username):
+    user = User.objects.filter(username=username)
+    if user:
+        return True
+    return False
+
+
 def emailValid(email):
     user = User.objects.filter(email=email)
     if user:
         return True
     return False
 
+
 def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)
+        userNameFound = userNameValid(request.POST["username"])
         emailFound = emailValid(request.POST["email"])
         passwordCheck = request.POST["password1"] != request.POST["password2"]
         if form.is_valid() and not (emailFound or passwordCheck):
             user = form.save()
+            role = Role.objects.filter(name_en="No subscription").first()
+            if not role:
+                role = Role.objects.create(name_ru="Без подписки", name_en="No subscription", name_kk="Жазылым жоқ")
+            user.profile.role = role
             user.save()
+
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect("index")
         else:
             return render(request, "registration/signup.html",
-                          {"passwordCheck": passwordCheck, "emailFound": emailFound})
+                          {"userNameFound": userNameFound, "passwordCheck": passwordCheck, "emailFound": emailFound})
     else:
         return render(request, "registration/signup.html")
+
 
 def cabinet(request):
     user = request.user
     return render(request, 'cabinet.html', {"user": user})
+
+
+def category_add(request):
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+    return redirect("/settings/categories")
+
+
+def category_delete(request, pk):
+    category = Category.objects.get(pk=pk)
+    category.delete()
+    return redirect("/settings/categories")
+
+
+def genre_add(request):
+    if request.method == "POST":
+        form = GenreForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return redirect("/settings/genres")
+
+
+def genre_delete(request, pk):
+    genre = Genre.objects.get(pk=pk)
+    genre.delete()
+    return redirect('/settings/genres')
+
+
+def subscription(request):
+    user = request.user
+    return render(request, "subscription.html")

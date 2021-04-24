@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+Ошибка
+{% endblock %}
+
+{% block head %}
+<style>
+    .error{
+        text-align:center;
+        color:white;
+    }
+    .error_link_wrap{
+        margin-top:20px;
+    }
+    .error_link{
+        background-color:#818181;
+        color:white;
+        padding:10px;
+    }
+    .movie_detail{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="movie_detail">
+    <div class="error">
+        <h3 class="errorTitle">
+            Ошибка
+        </h3>
+        <div class="errorDescription">
+            Для просмотра содержимого вам нужно оформить подписку
+        </div>
+        <div class="error_link_wrap"><a href="{% url 'subscription' %}" class="error_link">Оформить подписку</a></div>
+    </div>
+</div>
+{% endblock %}

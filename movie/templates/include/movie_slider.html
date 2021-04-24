@@ -1,5 +1,5 @@
 {% load static %}
-
+{% if best_movies %}
 <div class="movie_slider">
     <div class="top-content">
         <div class="container-fluid">
@@ -7,7 +7,7 @@
                 <div class="carousel-inner row w-100 mx-auto" role="listbox">
                     {% for movie in best_movies %}
                     <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 {% if forloop.counter == 1 %} active {% endif %}">
-                        <a href="{{movie.get_absolute_url}}"><img src="{% if movie.poster %}{{ movie.poster.url }}{% else %}{% static 'img/video.png' %}{% endif %}" class="img-fluid mx-auto d-block" alt="img1"><span>{{ movie.title }}</span></a>
+                        <a href="{{movie.get_absolute_url}}">{% if movie.subscription %} <div class="subscription_line">Подписка</div> {% endif %}<img src="{% if movie.poster %}{{ movie.poster.url }}{% else %}{% static 'img/video.png' %}{% endif %}" class="img-fluid mx-auto d-block" alt="img1"><span>{{ movie.title }}</span></a>
                     </div>
                     {% endfor %}
 
@@ -24,3 +24,4 @@
         </div>
     </div>
 </div>
+{% endif %}

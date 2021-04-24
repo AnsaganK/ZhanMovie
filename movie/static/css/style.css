@@ -678,6 +678,18 @@ padding: 5px 10px;
     color: red;
     margin: 10px auto;
 }
+.settings_form{
+    margin-top:30px;
+}
+.subscription_line{
+    font-size: 12px;
+    background-color: #f6601e;
+    border-bottom-right-radius: 10px;
+    position: absolute;
+    text-align: center;
+    color: #ffffff;
+    padding: 10px;
+}
 
 @media (min-width: 768px) and (max-width: 991px) {
     /* Show 4th slide on md if col-md-4*/

@@ -9,9 +9,6 @@
     width: 300px;
 }
 
-.form_item .filter_items {
-    width: 71%;
-}
 
 .review_form{
     padding:10px;
@@ -40,7 +37,7 @@
 .movie_reviews_title{
     color:wheat;
     text-align:center;
-    margin-top:20px;
+    margin-top:40px;
 }
 
 .review_form_item label{
@@ -72,7 +69,41 @@
     margin-top:10px;
     padding-left:10px;
 }
+.movie_cadr{
+    border:1px dashed grey;
+    width:200px;
+    font-size:50px;
+    color:grey;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:150px;
+    margin-bottom:30px;
+}
+.add_image{
+    border:1px dashed grey;
+    width:200px;
+    font-size:50px;
+    color:grey;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:150px;
+    margin-bottom:30px;
+}
 
+
+
+.add_image_label~input{
+    display:none;
+}
+
+.form_item .filter_items {
+    width:306px;
+}
+.modal-dialog{
+    max-width:600px;
+}
 
 </style>
 {% endblock %}
@@ -163,8 +194,7 @@
                                 <div class="filter_item">
                                     <input class="filter_item_input" type="checkbox" name="country_{{country.pk}}"
                                            id="country_{{country.pk}}" {% if country.pk in countriesIds %}checked{% endif %}>
-                                    <label for="country_{{country.pk}}" class="filter_item_label">{{ country.name
-                                        }}</label>
+                                    <label for="country_{{country.pk}}" class="filter_item_label">{{ country.name }}</label>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -200,6 +230,10 @@
                         <div class="form_item">
                             <label for="">Год</label><input type="number" name="year" style="text-align: center"
                                                             value="{{ movie.year }}">
+                        </div>
+                        <div class="form_item">
+                            <label for="">По подписке</label>
+                            <input type="checkbox" name="subscription" {% if movie.subscription %}checked{% endif %}>
                         </div>
                         <div class="form_item">
                             <label for="">Показывать в слайдере</label><input name="best" type="checkbox"
@@ -274,16 +308,23 @@
     </div>
     <div class="movie_description_block">
         <p class="movie_description">Описание</p>
-        <hr color="grey">
-        <p class="movie_description">{{ movie.description }}</p>
+        <p class="movie_description" style="color:#ffe4c7;">{{ movie.description }}</p>
     </div>
-    {% if movie.images.all %}
+    <hr color="grey">
+    {% if movie.images.all or request.user|isRole:"Админ" %}
     <div class="movie_image_block">
         <p class="movie_description">Кадры из фильма</p>
-        <hr color="grey">
         {% for image in movie.images.all %}
-        <img src="{{ image.url }}" alt="">
+        <img src="{{ image.url }}" class="movie_cadr" alt="">
         {% endfor %}
+        {% if request.user|isRole:"Админ" %}
+        <label for="add_image" class="add_image_label">
+            <div class="add_image">
+                +
+            </div>
+        </label>
+        <input type="file" id="add_image">
+        {% endif %}
     </div>
     {% endif %}
     <div class="movie_video_block">
@@ -302,7 +343,6 @@
         {% endif %}
         {% endif %}
     </div>
-    <hr color="grey">
     <div class="movie_reviews_block">
         <h3 class="movie_reviews_title">Оставить отзыв</h3>
         {% if request.user.is_authenticated %}

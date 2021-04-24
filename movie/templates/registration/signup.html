@@ -10,6 +10,10 @@
 <div class="movie_detail">
     <div class="login_form">
         <h3>Регистрация</h3>
+
+        {% if userNameFound %}
+        <p class="form_errors">Пользователь с таким ником уже есть в системе</p>
+        {% endif %}
         {% if passwordCheck %}
         <p class="form_errors">Пароли не совпадают</p>
         {% endif %}

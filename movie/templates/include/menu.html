@@ -1,7 +1,9 @@
+{% load movie_tags %}
+
 <div class="menu">
     <ul class="menu_list">
         {% for category in categories %}
-        <li class="menu_item {% if request.get_full_path == category.get_absolute_url %}active_link{% endif %}"><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+        <li class='menu_item {% if request.get_full_path|slice:"13:"|getFirstElement == category.pk %}active_link{% endif %}'><a href="{{ category.get_absolute_url }}{{ request.get }}">{{ category.name }}</a></li>
         {% endfor %}
     </ul>
 </div>

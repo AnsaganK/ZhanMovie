@@ -23,11 +23,32 @@
                 <tr>
                     <td>{{ genre.name }}</td>
                     <td>{{ genre.movies.all.count }}</td>
-                    <td><a href="">Изменить</a> | <a href="">Удалить</a></td>
+                    <td><a href="">Изменить</a> | <a href="{% url 'genre_delete' genre.pk %}">Удалить</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="error404" colspan="3">Данные отсутсвуют</td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
+            <form action="{% url 'genre_add' %}" class="login_form settings_form" method="post">
+                {% csrf_token %}
+                <h3>Добавить жанр</h3>
+                <div class="login_form_item">
+                    <label for="">Название на русском</label>
+                    <input type="text" name="name_ru">
+                </div>
+                <div class="login_form_item">
+                    <label for="">Название на английском</label>
+                    <input type="text" name="name_en">
+                </div>
+                <div class="login_form_item">
+                    <label for="">Название на казахском</label>
+                    <input type="text" name="name_kk">
+                </div>
+                <button type="submit">Отправить</button>
+            </form>
         </div>
     </div>
 

@@ -7,6 +7,7 @@
         <a href="{% url 'settings_movies' %}"  class="settings_menu_item {% if request.get_full_path|slice:'3:' == '/settings/movies' %} active_settings_link {% endif %}" class="settings_menu_item">Фильмы <span></span></a>
         <a href="{% url 'settings_archive' %}"  class="settings_menu_item {% if request.get_full_path|slice:'3:' == '/settings/archive' %} active_settings_link {% endif %}" class="settings_menu_item">Архив <span></span></a>
         <a href="{% url 'settings_users' %}"  class="settings_menu_item {% if request.get_full_path|slice:'3:' == '/settings/users' %} active_settings_link {% endif %}" class="settings_menu_item">Пользователи <span></span></a>
-        <a href="{% url 'settings_users' %}" class="settings_menu_item {% if request.get_full_path|slice:'3:' == '/settings/other' %} active_settings_link {% endif %}"  class="settings_menu_item">Другое <span></span></a>
+        <a href="{% url 'settings_roles' %}"  class="settings_menu_item {% if request.get_full_path|slice:'3:' == '/settings/roles' %} active_settings_link {% endif %}" class="settings_menu_item">Роли <span></span></a>
+        <a href="{% url 'settings_other' %}" class="settings_menu_item {% if request.get_full_path|slice:'3:' == '/settings/other' %} active_settings_link {% endif %}"  class="settings_menu_item">Другое <span></span></a>
     </div>
 </div>

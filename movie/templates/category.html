@@ -19,6 +19,11 @@
                 {% for movie in movies %}
                 <div class="movie_block">
                     <a href="{{ movie.get_absolute_url }}">
+                        {% if movie.subscription %}
+                            <div class="subscription_line">
+                                Подписка
+                            </div>
+                        {% endif %}
                         <img class="movie_img" src="{% if movie.poster %}{{ movie.poster.url }}{% else %}{% static 'img/video.png' %}{% endif %}">
                         <div>
                             <span class="movie_year">{{ movie.year }}</span>
@@ -33,13 +38,13 @@
 
         </div>
         <div class="movie_filter">
-            <form>
+            <form method="get">
                 <span>Жанры</span>
 
                 <div class="filter_items">
                     {% for genre in genres %}
                     <div class="filter_item">
-                        <input class="filter_item_input" type="checkbox" name="genre_{{genre.pk}}"
+                        <input class="filter_item_input" type="checkbox" name="genres" value="{{ genre.pk }}"
                                id="genre_{{genre.pk}}">
                         <label for="genre_{{genre.pk}}" class="filter_item_label">{{ genre.name }}</label>
                     </div>
@@ -52,7 +57,7 @@
                 <div class="filter_items">
                     {% for year in years %}
                     <div class="filter_item">
-                        <input class="filter_item_input" type="checkbox" name="year_{{year}}" id="year_{{year}}">
+                        <input class="filter_item_input" type="checkbox" name="years" value="{{ year }}" id="year_{{year}}">
                         <label for="year_{{year}}" class="filter_item_label">{{ year.year }}</label>
 
                     </div>
@@ -64,7 +69,7 @@
                 <div class="filter_items">
                     {% for country in countries %}
                     <div class="filter_item">
-                        <input class="filter_item_input" type="checkbox" name="country_{{country.pk}}"
+                        <input class="filter_item_input" type="checkbox" name="countries" value="{{ country.pk }}"
                                id="country_{{country.pk}}">
                         <label for="country_{{country.pk}}" class="filter_item_label">{{ country.name }}</label>
                     </div>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+Роли
+{% endblock %}
+
+{% block content %}
+<div class="movie_detail">
+    <div class="settings">
+        {% include 'include/settings_menu.html' %}
+        <div class="settings_content">
+             <table class="settings_table">
+                <thead>
+                <tr>
+                    <th>Назвние</th>
+                    <th>Пользователей</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for role in roles %}
+                <tr>
+                    <td>{{ role.name }}</td>
+                    <td>{{ role.profiles.count }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

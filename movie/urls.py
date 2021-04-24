@@ -16,6 +16,11 @@ urlpatterns = [
     path('genre_delete/<int:pk>', genre_delete, name="genre_delete"),
     path('review_add/<int:pk>', review_add, name="review_add"),
     path('cabinet/', cabinet, name="cabinet"),
+    path('category_add/', category_add, name="category_add"),
+    path('category_delete/<int:pk>', category_delete, name="category_delete"),
+
+    path('genre_add/', genre_add, name="genre_add"),
+    path('genre_delete/<int:pk>', genre_delete, name="genre_delete"),
 ]
 
 urlpatterns += [
@@ -26,6 +31,9 @@ urlpatterns += [
     path('settings/actors', settings, name="settings_actors"),
     path('settings/producers', settings, name="settings_producers"),
     path('settings/users', settings_users, name="settings_users"),
+    path('settings/roles', settings_roles, name="settings_roles"),
+    path('settings/other', settings_other, name="settings_other"),
+    path('subscription/', subscription, name="subscription"),
 ]
 
 urlpatterns += [

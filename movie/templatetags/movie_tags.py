@@ -36,3 +36,6 @@ def returnDicEl(data, id):
 
 
 
+@register.filter(name="getFirstElement")
+def getFirstElement(element):
+    return int(element[0])

@@ -9,12 +9,12 @@ from django.shortcuts import reverse
 
 
 class Category(models.Model):
-    name = models.CharField("Категория", max_length=150)
+    name = models.CharField("Категория", max_length=150, null=True, blank=True)
     description = models.TextField("Описание", null=True, blank=True)
-    url = models.SlugField(max_length=160, unique=True)
+    #url = models.SlugField(max_length=160, unique=True)
 
     def __str__(self):
-        return self.url
+        return self.name
 
     def get_absolute_url(self):
         return reverse('category', args=[str(self.pk)])
@@ -25,12 +25,12 @@ class Category(models.Model):
 
 
 class Genre(models.Model):
-    name = models.CharField("Имя", max_length=100)
+    name = models.CharField("Имя", max_length=100, null=True, blank=True)
     description = models.TextField("Описание", null=True, blank=True)
-    url = models.SlugField(max_length=160, unique=True)
+    #url = models.SlugField(max_length=160, unique=True)
 
     def __str__(self):
-        return self.url
+        return self.name
 
     class Meta:
         verbose_name = "Жанр"
@@ -95,6 +95,7 @@ class Movie(models.Model):
     video = models.FileField(upload_to="video/", null=True, blank=True)
     video_url = models.TextField(null=True, blank=True)
 
+    subscription = models.BooleanField(default=False, verbose_name="По подписке")
     archive = models.BooleanField(default=False)
 
     def __str__(self):
