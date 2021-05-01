@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
-Вход
+{% trans 'Вход' %}
 {% endblock %}
 
 {% block head %}
@@ -13,20 +14,20 @@
 {% block content %}
 <div class="movie_detail">
     <div class="login_form">
-        <h3>Вход</h3>
+        <h3>{% trans 'Вход' %}</h3>
         <form action="{% url 'login' %}" method="post">
             {% csrf_token %}
             <div class="login_form_item">
-                <label for="">Ник</label>
+                <label for="">{% trans 'Ник' %}</label>
                 <input type="text" name="username">
             </div>
             <div class="login_form_item">
-                <label for="">Пароль</label>
+                <label for="">{% trans 'Пароль' %}</label>
                 <input type="password" name="password">
             </div>
-            <button type="submit">Войти</button>
+            <button type="submit">{% trans 'Войти' %}</button>
         </form>
-        <a href="{% url 'signup' %}">Нет аккаунта, зарегистрируйтесь</a>
+        <a href="{% url 'signup' %}">{% trans 'Нет аккаунта, зарегистрируйтесь' %}</a>
     </div>
 </div>
 {% endblock %}

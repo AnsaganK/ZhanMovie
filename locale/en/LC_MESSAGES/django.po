@@ -1,0 +1,531 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-29 12:52+0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\movie\templates\base.html:36
+msgid "Добавить фильм"
+msgstr "Add movie"
+
+#: .\movie\templates\base.html:38
+msgid "Настройки"
+msgstr "Site settings"
+
+#: .\movie\templates\base.html:42
+msgid "Кабинет"
+msgstr "Cabinet"
+
+#: .\movie\templates\base.html:44
+msgid "Выход"
+msgstr "Logout"
+
+#: .\movie\templates\base.html:46 .\movie\templates\registration\login.html:5
+#: .\movie\templates\registration\login.html:17
+msgid "Вход"
+msgstr "Login"
+
+#: .\movie\templates\base.html:66
+msgid "Поиск..."
+msgstr "Search..."
+
+#: .\movie\templates\base.html:88
+msgid "Фильмы с душой"
+msgstr "Best Movies"
+
+#: .\movie\templates\cabinet.html:7 .\movie\templates\cabinet.html:117
+msgid "Личный кабинет"
+msgstr "Personal cabinet"
+
+#: .\movie\templates\cabinet.html:129 .\movie\templates\edit.html:38
+#: .\movie\templates\registration\signup.html:36
+msgid "Имя"
+msgstr "First name"
+
+#: .\movie\templates\cabinet.html:133 .\movie\templates\edit.html:42
+#: .\movie\templates\registration\signup.html:40
+msgid "Фамилия"
+msgstr "Last name"
+
+#: .\movie\templates\cabinet.html:137
+msgid "Email"
+msgstr "Email"
+
+#: .\movie\templates\cabinet.html:141 .\movie\templates\edit.html:46
+msgid "Дата рождения"
+msgstr "Birth date"
+
+#: .\movie\templates\cabinet.html:142
+msgid "Не указано"
+msgstr "Not write"
+
+#: .\movie\templates\cabinet.html:146
+msgid "У вас есть подписка"
+msgstr "You have a subscription "
+
+#: .\movie\templates\cabinet.html:147
+msgid "Отменить подписку"
+msgstr "Unsubscribe"
+
+#: .\movie\templates\cabinet.html:149
+msgid "У вас нет подписки"
+msgstr "You don't have a subscription"
+
+#: .\movie\templates\cabinet.html:150 .\movie\templates\errorPage.html:39
+msgid "Оформить подписку"
+msgstr "Subscribe"
+
+#: .\movie\templates\cabinet.html:158
+msgid "Последние просмотренные"
+msgstr "Last viewed"
+
+#: .\movie\templates\cabinet.html:168 .\movie\templates\category.html:25
+#: .\movie\templates\include\movie_slider.html:11
+#: .\movie\templates\subscription.html:5
+msgid "Подписка"
+msgstr "Subscription"
+
+#: .\movie\templates\cabinet.html:185
+msgid "Последние отзывы"
+msgstr "Last reviews"
+
+#: .\movie\templates\category.html:43
+#: .\movie\templates\include\settings_menu.html:5
+#: .\movie\templates\movie_add.html:90 .\movie\templates\movie_detail.html:219
+msgid "Жанры"
+msgstr "Genres"
+
+#: .\movie\templates\category.html:56
+msgid "Года"
+msgstr "Years"
+
+#: .\movie\templates\category.html:68 .\movie\templates\movie_add.html:69
+#: .\movie\templates\movie_detail.html:195
+msgid "Страны"
+msgstr "Countries"
+
+#: .\movie\templates\category.html:93
+msgid "Фильтровать"
+msgstr "Filter"
+
+#: .\movie\templates\category.html:105
+msgid "Фильмы не найдены"
+msgstr "Movies not found"
+
+#: .\movie\templates\edit.html:26
+msgid "Изменить профиль"
+msgstr "Edit profile"
+
+#: .\movie\templates\edit.html:34 .\movie\templates\registration\login.html:21
+#: .\movie\templates\registration\signup.html:27
+msgid "Ник"
+msgstr "Nik"
+
+#: .\movie\templates\errorPage.html:34
+msgid "Ошибка"
+msgstr "Error"
+
+#: .\movie\templates\errorPage.html:37
+msgid "Для просмотра содержимого вам нужно оформить подписку"
+msgstr "You need to subscribe to view the content"
+
+#: .\movie\templates\include\pagination.html:8
+msgid "Пред."
+msgstr "prev"
+
+#: .\movie\templates\include\pagination.html:21
+msgid "След."
+msgstr "next"
+
+#: .\movie\templates\include\settings_menu.html:4
+msgid "Категории"
+msgstr "Categories"
+
+#: .\movie\templates\include\settings_menu.html:8
+msgid "Фильмы"
+msgstr "Movies"
+
+#: .\movie\templates\include\settings_menu.html:9
+msgid "Архив"
+msgstr "Archive"
+
+#: .\movie\templates\include\settings_menu.html:10
+msgid "Пользователи"
+msgstr "Users"
+
+#: .\movie\templates\include\settings_menu.html:11
+msgid "Роли"
+msgstr "Roles"
+
+#: .\movie\templates\index.html:7
+msgid "Главная"
+msgstr "Home"
+
+#: .\movie\templates\index.html:17
+msgid "Добро пожаловать на сайт"
+msgstr "Welcome to site"
+
+#: .\movie\templates\index.html:19
+msgid ""
+"Приветствуем вас в нашем виртуальном кинотеатре KazakhFilms. Мы постарались "
+"создать портал,\n"
+"            который точно придётся по душе многим и сможет предоставить "
+"доступ к любым фильмам. На KazakhFilms не требуется\n"
+"            проходить регистрацию или платить за просмотр. Начать "
+"наслаждаться интересующей лентой вы можете в считанные\n"
+"            секунды. Не нужно слишком долго разбираться со всеми нюансами, "
+"достаточно всего лишь вбить в поле поиска\n"
+"            название и забыть о проблемах. Все представленное кино в хорошем "
+"качестве.\n"
+"            KazakhFilms - Смотреть фильмы онлайн бесплатно\n"
+"            Современную жизнь сложно представить без кино. Многие хотят "
+"постоянно следить за новинками, чтобы потом\n"
+"            иметь возможность обсудить понравившиеся картины с друзьями. "
+"Однако далеко не каждый человек готов ходить в\n"
+"            кинозал, ведь это порой вызывает много трудностей. Цена на билет "
+"сильно кусается, а сосед постоянно что-то\n"
+"            ест или обсуждает фильм со своим другом. Всё это сильно "
+"отвлекает от просмотра и не даёт возможности\n"
+"            полностью окунуться в мир кинематографа. Именно поэтому смотреть "
+"фильмы онлайн на нашем сайте очень удобно.\n"
+"            "
+msgstr ""
+"Welcome to our virtual cinema KazakhFilms. We tried to create a portalwhich "
+"will definitely appeal to many and will be able to provide access to any "
+"films. KazakhFilms does not requireregister or pay per view. You can start "
+"enjoying the feed of interest in a matter ofseconds. You don't need to deal "
+"with all the nuances for too long, you just need to type in the search "
+"fieldname and forget about the problems. All presented movies are in good "
+"quality.KazakhFilms - Watch movies online for freeIt's hard to imagine "
+"modern life without cinema. Many people want to constantly monitor new "
+"products, so that laterhave the opportunity to discuss your favorite "
+"pictures with friends. However, not every person is ready to go tocinema, "
+"because it sometimes causes a lot of difficulties. The ticket price bites "
+"hard, and the neighbor is constantly somethingeating or discussing a movie "
+"with his friend. All this greatly distracts from viewing and does not "
+"provide an opportunitycompletely plunge into the world of cinema. That is "
+"why it is very convenient to watch movies online on our website."
+
+#: .\movie\templates\movie_add.html:5 .\movie\templates\movie_add.html:11
+msgid "Добавление фильма"
+msgstr "Add movie"
+
+#: .\movie\templates\movie_add.html:23 .\movie\templates\movie_add.html:35
+#: .\movie\templates\movie_add.html:48 .\movie\templates\movie_detail.html:144
+#: .\movie\templates\movie_detail.html:159
+#: .\movie\templates\movie_detail.html:173
+msgid "Название"
+msgstr "Title"
+
+#: .\movie\templates\movie_add.html:25 .\movie\templates\movie_add.html:38
+#: .\movie\templates\movie_add.html:51 .\movie\templates\movie_detail.html:148
+#: .\movie\templates\movie_detail.html:163
+#: .\movie\templates\movie_detail.html:177
+msgid "Слоган"
+msgstr "Tagline"
+
+#: .\movie\templates\movie_add.html:29 .\movie\templates\movie_add.html:42
+#: .\movie\templates\movie_add.html:55 .\movie\templates\movie_detail.html:153
+#: .\movie\templates\movie_detail.html:167
+#: .\movie\templates\movie_detail.html:181
+#: .\movie\templates\movie_detail.html:314
+msgid "Описание"
+msgstr "Description"
+
+#: .\movie\templates\movie_add.html:63 .\movie\templates\movie_detail.html:189
+msgid "Актеры"
+msgstr "Actors"
+
+#: .\movie\templates\movie_add.html:66 .\movie\templates\movie_detail.html:192
+msgid "Режиссеры"
+msgstr "Producers"
+
+#: .\movie\templates\movie_add.html:80 .\movie\templates\movie_detail.html:206
+msgid "Категория"
+msgstr "Category"
+
+#: .\movie\templates\movie_add.html:87 .\movie\templates\movie_detail.html:214
+msgid "Постер"
+msgstr "Poster"
+
+#: .\movie\templates\movie_add.html:88 .\movie\templates\movie_detail.html:215
+msgid "Видеофайл"
+msgstr "Videofile"
+
+#: .\movie\templates\movie_add.html:89 .\movie\templates\movie_detail.html:216
+msgid "Ссылка на видео"
+msgstr "Link for video"
+
+#: .\movie\templates\movie_add.html:102 .\movie\templates\movie_detail.html:231
+msgid "Премьера в мире"
+msgstr "Premier date"
+
+#: .\movie\templates\movie_add.html:105 .\movie\templates\movie_detail.html:235
+msgid "Год"
+msgstr "Year"
+
+#: .\movie\templates\movie_add.html:108 .\movie\templates\movie_detail.html:239
+msgid "По подписке"
+msgstr "By subscription"
+
+#: .\movie\templates\movie_add.html:112 .\movie\templates\movie_detail.html:243
+msgid "Показывать в слайдере"
+msgstr "Show in slider"
+
+#: .\movie\templates\movie_add.html:118
+msgid "Создать"
+msgstr "Create"
+
+#: .\movie\templates\movie_detail.html:125
+#: .\movie\templates\movie_detail.html:251
+#: .\movie\templates\movie_detail.html:295
+msgid "Изменить"
+msgstr "Edit"
+
+#: .\movie\templates\movie_detail.html:250
+#: .\movie\templates\movie_detail.html:274
+msgid "Закрыть"
+msgstr "Close"
+
+#: .\movie\templates\movie_detail.html:264
+msgid "Подтвердите удаление"
+msgstr "Confirm deletion"
+
+#: .\movie\templates\movie_detail.html:276
+#: .\movie\templates\movie_detail.html:296
+msgid "Удалить"
+msgstr "Remove"
+
+#: .\movie\templates\movie_detail.html:291
+msgid "Опубликовать"
+msgstr "Published"
+
+#: .\movie\templates\movie_detail.html:293
+msgid "В архив"
+msgstr "In archive"
+
+#: .\movie\templates\movie_detail.html:300
+msgid "Название:"
+msgstr "Title:"
+
+#: .\movie\templates\movie_detail.html:301
+msgid "Слоган:"
+msgstr "Tagline:"
+
+#: .\movie\templates\movie_detail.html:303
+msgid "Год:"
+msgstr "Year:"
+
+#: .\movie\templates\movie_detail.html:304
+msgid "Режиссеры:"
+msgstr "Producers:"
+
+#: .\movie\templates\movie_detail.html:305
+msgid "Актеры:"
+msgstr "Actors:"
+
+#: .\movie\templates\movie_detail.html:306
+msgid "Страна:"
+msgstr "Country:"
+
+#: .\movie\templates\movie_detail.html:307
+msgid "Категория:"
+msgstr "Category:"
+
+#: .\movie\templates\movie_detail.html:308
+msgid "Жанры:"
+msgstr "Genres:"
+
+#: .\movie\templates\movie_detail.html:309
+msgid "Премьера:"
+msgstr "Premier:"
+
+#: .\movie\templates\movie_detail.html:320
+msgid "Кадры из фильма"
+msgstr "Movieshots"
+
+#: .\movie\templates\movie_detail.html:342
+msgid "Отправить"
+msgstr "Send"
+
+#: .\movie\templates\movie_detail.html:361
+msgid "Видео не найдено"
+msgstr "Video not found"
+
+#: .\movie\templates\movie_detail.html:366
+msgid "Оставить отзыв"
+msgstr "Give feedback"
+
+#: .\movie\templates\movie_detail.html:381
+msgid "Только авторизованные пользователи могут оставлять отзывы"
+msgstr "Only authorized users can leave reviews"
+
+#: .\movie\templates\movie_detail.html:384
+msgid "Отзывы"
+msgstr "Reviews"
+
+#: .\movie\templates\registration\login.html:25
+#: .\movie\templates\registration\signup.html:45
+msgid "Пароль"
+msgstr "Password"
+
+#: .\movie\templates\registration\login.html:28
+msgid "Войти"
+msgstr "login"
+
+#: .\movie\templates\registration\login.html:30
+msgid "Нет аккаунта, зарегистрируйтесь"
+msgstr "No account, sign up"
+
+#: .\movie\templates\registration\signup.html:12
+#: .\movie\templates\registration\signup.html:52
+msgid "Регистрация"
+msgstr "Sign up"
+
+#: .\movie\templates\registration\signup.html:15
+msgid "Пользователь с таким ником уже есть в системе"
+msgstr "A user with this nickname is already in the system"
+
+#: .\movie\templates\registration\signup.html:18
+msgid "Пароли не совпадают"
+msgstr "Password mismatch"
+
+#: .\movie\templates\registration\signup.html:22
+msgid "Пользователь с такой почтой уже есть в системе"
+msgstr "A user with such mail is already in the system"
+
+#: .\movie\templates\registration\signup.html:32
+msgid "Почта"
+msgstr "Mail"
+
+#: .\movie\templates\registration\signup.html:49
+msgid "Пароль(повтор)"
+msgstr "Password(repeat)"
+
+#: .\movie\templates\registration\signup.html:54
+msgid "Есть аккаунт, войдите"
+msgstr "Have an account, login"
+
+#: .\movie\templates\search_result.html:6
+msgid "Результаты поиска"
+msgstr "Search result"
+
+#: .\movie\templates\search_result.html:21
+msgid "Результаты поиска:"
+msgstr "Search result:"
+
+#: .\movie\templates\settings.html:5
+#: .\movie\templates\settings_page\actors.html:5
+#: .\movie\templates\settings_page\category.html:9
+#: .\movie\templates\settings_page\genres.html:5
+#: .\movie\templates\settings_page\movies.html:6
+#: .\movie\templates\settings_page\producers.html:5
+#: .\movie\templates\settings_page\users.html:5
+msgid "Настройки сайта"
+msgstr "Site settings"
+
+#: .\movie\templates\subscription.html:70
+msgid ""
+"\n"
+"                На <span class=\"tarif_number\">7</span>дней\n"
+"                "
+msgstr ""
+"\n"
+"                For <span class=\"tarif_number\">7</span>days\n"
+"                "
+
+#: .\movie\templates\subscription.html:78
+msgid ""
+"\n"
+"                    <li>Ограниченный доступ</li>\n"
+"                    <li>Одна категория</li>\n"
+"                    <li>Более 10 фильмов</li>\n"
+"                    <li>Просмотр истории за 10 дней</li>\n"
+"\n"
+"                "
+msgstr ""
+"\n"
+"                    <li>Limited Access</li>\n"
+"                    <li>1 Category</li>\n"
+"                    <li>More than 10 movies</li>\n"
+"                    <li>Viewing history to 10 days</li>\n"
+"\n"
+"                "
+
+#: .\movie\templates\subscription.html:86
+#: .\movie\templates\subscription.html:107
+#: .\movie\templates\subscription.html:129
+msgid "Купить подписку"
+msgstr "Buy subscription"
+
+#: .\movie\templates\subscription.html:91
+msgid ""
+"\n"
+"                На <span class=\"tarif_number\">14</span>дней\n"
+"\n"
+"                "
+msgstr ""
+"\n"
+"                For <span class=\"tarif_number\">14</span>days\n"
+"                "
+
+#: .\movie\templates\subscription.html:99
+msgid ""
+"\n"
+"                    <li>Безграничный доступ</li>\n"
+"                    <li>Две категории</li>\n"
+"                    <li>Более 20 фильмов</li>\n"
+"                    <li>Просмотр полной истории</li>\n"
+"\n"
+"                "
+msgstr ""
+"\n"
+"                    <li>Unlimited Access</li>\n"
+"                    <li>2 Category</li>\n"
+"                    <li>More than 20 movies</li>\n"
+"                    <li>Viewing full history</li>\n"
+"\n"
+"                "
+
+#: .\movie\templates\subscription.html:112
+msgid ""
+"\n"
+"                На <span class=\"tarif_number\">30</span>дней\n"
+"\n"
+"                "
+msgstr ""
+"\n"
+"                For <span class=\"tarif_number\">30</span>days\n"
+"                "
+
+#: .\movie\templates\subscription.html:121
+msgid ""
+"\n"
+"                    <li>Безграничный доступ</li>\n"
+"                    <li>Три категории</li>\n"
+"                    <li>Более 50 фильмов</li>\n"
+"                    <li>Просмотр статистики</li>\n"
+"\n"
+"                "
+msgstr ""
+"\n"
+"                    <li>Unlimited Access</li>\n"
+"                    <li>3 Category</li>\n"
+"                    <li>More than 50 movies</li>\n"
+"                    <li>Viewing statistics</li>\n"
+"\n"
+"                "

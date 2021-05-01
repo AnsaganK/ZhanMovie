@@ -32,18 +32,18 @@
 
             <div style="display: flex; align-items: center">
 
-                {% if request.user|isRole:"Админ" %}
-                <a href="{% url 'movie_add' %}" class="add_movie_link">Добавить фильм</a>
+                {% if request.user.profile.admin %}
+                <a href="{% url 'movie_add' %}" class="add_movie_link">{% trans 'Добавить фильм' %}</a>
                 <a href="{% url 'settings_categories' %}" class="add_movie_link settings_link"><img src="{% static 'img/settings.png' %}" alt=""
-                                                                            height="20px;">Настройки</a>
+                                                                            height="20px;">{% trans 'Настройки' %}</a>
                 {% endif %}
                 {% if request.user.is_authenticated %}
-                {% if not request.user|isRole:"Админ" %}
-                <a href="{% url 'cabinet' %}" class="login_link">Кабинет</a>
+                {% if not request.user.profile.admin %}
+                <a href="{% url 'cabinet' %}" class="login_link">{% trans 'Кабинет' %}</a>
                 {% endif %}
-                <a href="{% url 'logout' %}" class="login_link">Выход</a>
+                <a href="{% url 'logout' %}" class="login_link">{% trans 'Выход' %}</a>
                 {% else %}
-                <a href="{% url 'login' %}" class="login_link">Вход</a>
+                <a href="{% url 'login' %}" class="login_link">{% trans 'Вход' %}</a>
                 {% endif %}
                 <form action="{% url 'set_language' %}" style="margin-right: 30px;" method="post">{% csrf_token %}
                     <input name="next" type="hidden" value="{{ redirect_to }}">
@@ -63,7 +63,7 @@
                     </select>
                 </form>
                 <form class="search_form" method="get" action="{% url 'search' %}">
-                    <input type="" name="q" class="search" placeholder="Поиск...">
+                    <input type="" name="q" class="search" placeholder="{% trans 'Поиск...' %}">
                     <label for="form_search">
                         <img src="{% static 'img/search.png' %}">
                     </label>
@@ -85,7 +85,7 @@
     <div class="footer">
         <div class="footer_item">
             <img src="{% static 'img/logo_new.png' %}">
-            <p>Фильмы с душой</p>
+            <p>{% trans 'Фильмы с душой' %}</p>
         </div>
     </div>
 </div>

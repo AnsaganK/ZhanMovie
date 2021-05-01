@@ -1,11 +1,135 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
-
+{% trans 'Подписка' %}
 {% endblock %}
+
+{% block head %}
+<style>
+    .subscription_block{
+        display:flex;
+        justify-content:center;
+        alignm-items:center;
+    }
+    .subscription_block a{
+        color: #344146;
+        font-size: 22px;
+        padding: 15px;
+        height: fit-content;
+        text-align: center;
+        border-radius: 5px;
+        font-weight: 600;
+        box-shadow: 0px 0px 7px 0px #2b2b2b;
+        background:#ffc726; // #a3ff7d;
+    }
+    .movie_detail{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+    .subscription_block{
+        display:flex;
+        justify-content:space-between;
+    }
+    .tarif_card{
+        min-height: 500px;
+        border: 1px solid white;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        margin: auto 20px;
+        width: 300px;
+        justify-content: space-between;
+    }
+    .tarif_title{
+        font-size:32px;
+        font-weight:600;
+        text-align:center;
+    }
+    .tarif_number{
+        color:#fb5b04; //#a3ff7d;
+        font-size:50px;
+        margin:auto 5px;
+    }
+    .tarif_card ul{
+        list-style-type:disc;
+        padding:10px;
+    }
+</style>
+{% endblock %}
+
 
 {% block content %}
 <div class="movie_detail">
-<h3>Подписка</h3>
+    <div class="subscription_block">
+        <div class="tarif_card">
+            <div class="tarif_title">
+                {% blocktrans %}
+                На <span class="tarif_number">7</span>дней
+                {% endblocktrans %}
+                <hr>
+            </div>
+
+                <ul>
+
+                {% blocktrans %}
+                    <li>Ограниченный доступ</li>
+                    <li>Одна категория</li>
+                    <li>Более 10 фильмов</li>
+                    <li>Просмотр истории за 10 дней</li>
+
+                {% endblocktrans %}
+                </ul>
+            <a href="{% url 'subscription_add' %}">{% trans 'Купить подписку' %}</a>
+        </div>
+        <div class="tarif_card">
+            <div class="tarif_title">
+
+                {% blocktrans %}
+                На <span class="tarif_number">14</span>дней
+
+                {% endblocktrans %}
+                <hr>
+            </div>
+                <ul>
+
+                {% blocktrans %}
+                    <li>Безграничный доступ</li>
+                    <li>Две категории</li>
+                    <li>Более 20 фильмов</li>
+                    <li>Просмотр полной истории</li>
+
+                {% endblocktrans %}
+                </ul>
+            <a href="{% url 'subscription_add' %}">{% trans 'Купить подписку' %}</a>
+        </div>
+        <div class="tarif_card">
+            <div class="tarif_title">
+
+                {% blocktrans %}
+                На <span class="tarif_number">30</span>дней
+
+                {% endblocktrans %}
+                <hr>
+            </div>
+
+                <ul>
+
+                {% blocktrans %}
+                    <li>Безграничный доступ</li>
+                    <li>Три категории</li>
+                    <li>Более 50 фильмов</li>
+                    <li>Просмотр статистики</li>
+
+                {% endblocktrans %}
+                </ul>
+            <a href="{% url 'subscription_add' %}">{% trans 'Купить подписку' %}</a>
+        </div>
+
+
+    </div>
 </div>
 {% endblock %}

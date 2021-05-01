@@ -26,7 +26,7 @@
                     <td><a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a></td>
                     <td>{{ movie.category }}</td>
                     <td>{{ movie.genres.all|refactorList }}</td>
-                    <td><a href="">Изменить</a> | <a href="">Удалить</a></td>
+                    <td><a href="">Изменить</a> | <a href="{% url 'movie_delete_for_settings' movie.pk %}">Удалить</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>

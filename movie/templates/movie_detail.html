@@ -70,7 +70,6 @@
     padding-left:10px;
 }
 .movie_cadr{
-    border:1px dashed grey;
     width:200px;
     font-size:50px;
     color:grey;
@@ -91,7 +90,12 @@
     height:150px;
     margin-bottom:30px;
 }
-
+.movie_image_list{
+    display:flex;
+}
+.movie_image_list img{
+    margin-right:5px;
+}
 
 
 .add_image_label~input{
@@ -118,7 +122,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Изменить</h5>
+                <h5 class="modal-title" id="editModalLabel">{% trans 'Изменить' %}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -137,44 +141,44 @@
                         <label for="tab-btn-3">Қазақ</label>
 
                         <div id="content-1" class="form_content">
-                            <div class="form_item"><label for="">Название</label><input type="text" name="title_ru"
+                            <div class="form_item"><label for="">{% trans 'Название' %}</label><input type="text" name="title_ru"
                                                                                         placeholder="Название на русском"
                                                                                         value="{{ movie.title_ru }}">
                             </div>
-                            <div class="form_item"><label for="">Слоган</label><textarea name="tagline_ru" id=""
+                            <div class="form_item"><label for="">{% trans 'Слоган' %}</label><textarea name="tagline_ru" id=""
                                                                                          rows="2"
                                                                                          placeholder="Слоган на русском"
                                                                                          pytonh>{{ movie.tagline_ru }}</textarea>
                             </div>
-                            <div class="form_item"><label for="">Описание</label><textarea name="description_ru" id=""
+                            <div class="form_item"><label for="">{% trans 'Описание' %}</label><textarea name="description_ru" id=""
                                                                                            rows="7"
                                                                                            placeholder="Описание на русском">{{ movie.description_ru }}</textarea>
                             </div>
                         </div>
                         <div id="content-2" class="form_content">
-                            <div class="form_item"><label for="">Название</label><input type="text" name="title_en"
+                            <div class="form_item"><label for="">{% trans 'Название' %}</label><input type="text" name="title_en"
                                                                                         placeholder="Название на английском"
                                                                                         value="{{ movie.title_en }}">
                             </div>
-                            <div class="form_item"><label for="">Слоган</label><textarea name="tagline_en" id=""
+                            <div class="form_item"><label for="">{% trans 'Слоган' %}</label><textarea name="tagline_en" id=""
                                                                                          rows="2"
                                                                                          placeholder="Слоган на английском">{{ movie.tagline_en }}</textarea>
                             </div>
-                            <div class="form_item"><label for="">Описание</label><textarea name="description_en" id=""
+                            <div class="form_item"><label for="">{% trans 'Описание' %}</label><textarea name="description_en" id=""
                                                                                            rows="7"
                                                                                            placeholder="Описание на английском">{{ movie.description_en }}</textarea>
                             </div>
                         </div>
                         <div id="content-3" class="form_content">
-                            <div class="form_item"><label for="">Название</label><input type="text" name="title_kk"
+                            <div class="form_item"><label for="">{% trans 'Название' %}</label><input type="text" name="title_kk"
                                                                                         placeholder="Название на казахском"
                                                                                         value="{{ movie.title_kk }}">
                             </div>
-                            <div class="form_item"><label for="">Слоган</label><textarea name="tagline_kk" id=""
+                            <div class="form_item"><label for="">{% trans 'Слоган' %}</label><textarea name="tagline_kk" id=""
                                                                                          rows="2"
                                                                                          placeholder="Слоган на казахском">{{ movie.tagline_kk }}</textarea>
                             </div>
-                            <div class="form_item"><label for="">Описание</label><textarea name="description_kk" id=""
+                            <div class="form_item"><label for="">{% trans 'Описание' %}</label><textarea name="description_kk" id=""
                                                                                            rows="7"
                                                                                            placeholder="Описание на казахском">{{ movie.description_kk }}</textarea>
                             </div>
@@ -182,13 +186,13 @@
 
                     </div>
                     <div class="form_content">
-                        <div class="form_item"><label for="">Актеры</label><textarea name="actors_list" id=""
+                        <div class="form_item"><label for="">{% trans 'Актеры' %}</label><textarea name="actors_list" id=""
                                                                                      rows="5">{{ movie.actors_list }}</textarea>
                         </div>
-                        <div class="form_item"><label for="">Режиссеры</label><textarea name="directors_list" id=""
+                        <div class="form_item"><label for="">{% trans 'Режиссеры' %}</label><textarea name="directors_list" id=""
                                                                                         rows="5">{{ movie.directors_list }}</textarea>
                         </div>
-                        <div class="form_item"><label for="">Страны</label>
+                        <div class="form_item"><label for="">{% trans 'Страны' %}</label>
                             <div class="filter_items">
                                 {% for country in countries %}
                                 <div class="filter_item">
@@ -199,7 +203,7 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="form_item"><label for="">Категория</label>
+                        <div class="form_item"><label for="">{% trans 'Категория' %}</label>
                             <select name="category" id="">
                                 {% for category in categories %}
                                 <option value="{{ category.pk }}" {% if movie.category.pk == category.pk %} selected {% endif %}>{{ category.name }}
@@ -207,12 +211,12 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <div class="form_item"><label for="">Постер</label><input name="poster" type="file"></div>
-                        <div class="form_item"><label for="">Видеофайл</label><input name="video" type="file"></div>
-                        <div class="form_item"><label for="">Ссылка на видео</label><input name="video_url" type="url"
+                        <div class="form_item"><label for="">{% trans 'Постер' %}</label><input name="poster" type="file"></div>
+                        <div class="form_item"><label for="">{% trans 'Видеофайл' %}</label><input name="video" type="file"></div>
+                        <div class="form_item"><label for="">{% trans 'Ссылка на видео' %}</label><input name="video_url" type="url"
                                                                                            value="{% if movie.video_url %}{{ movie.video_url }}{% endif %}">
                         </div>
-                        <div class="form_item"><label for="">Жанры</label>
+                        <div class="form_item"><label for="">{% trans 'Жанры' %}</label>
                             <div class="filter_items">
                                 {% for genre in genres %}
                                 <div class="filter_item">
@@ -228,23 +232,23 @@
                                                                                       value="{{ movie.world_premiere.year|validDate }}-{{ movie.world_premiere.month|validDate }}-{{ movie.world_premiere.day|validDate }}">
                         </div>
                         <div class="form_item">
-                            <label for="">Год</label><input type="number" name="year" style="text-align: center"
+                            <label for="">{% trans 'Год' %}</label><input type="number" name="year" style="text-align: center"
                                                             value="{{ movie.year }}">
                         </div>
                         <div class="form_item">
-                            <label for="">По подписке</label>
+                            <label for="">{% trans 'По подписке' %}</label>
                             <input type="checkbox" name="subscription" {% if movie.subscription %}checked{% endif %}>
                         </div>
                         <div class="form_item">
-                            <label for="">Показывать в слайдере</label><input name="best" type="checkbox"
+                            <label for="">{% trans 'Показывать в слайдере' %}</label><input name="best" type="checkbox"
                                                                               style="text-align: center" {% if movie.best %} checked {% endif %}>
                         </div>
 
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                    <button type="submit" class="btn btn-danger">Изменить</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Закрыть' %}</button>
+                    <button type="submit" class="btn btn-danger">{% trans 'Изменить' %}</button>
 
                 </div>
 
@@ -257,19 +261,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Подтвердите удаление</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{% trans 'Подтвердите удаление' %}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Удаленные фильмы невозможно востановить, если же вам нужно скрыть фильм не удаляя тогда воспользуйтесь
-                архивом
+                {% trans 'Удаленные фильмы невозможно востановить, если же вам нужно скрыть фильм не удаляя тогда воспользуйтесь архивом' %}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Закрыть' %}</button>
                 <form action="{% url 'movie_delete' movie.pk %}" method="get">
-                    <button type="submit" class="btn btn-danger">Удалить</button>
+                    <button type="submit" class="btn btn-danger">{% trans 'Удалить' %}</button>
                 </form>
             </div>
         </div>
@@ -280,51 +283,66 @@
         <img src="{% if movie.poster %}{{ movie.poster.url }}{% else %}{% static 'img/video.png' %}{% endif %}" alt=""
              height="400px" width="300" class="movie_detail_img">
         <div class="movie_info">
-            {% if request.user|isRole:"Админ" %}
+            {% if request.user.profile.admin %}
             <div class="movie_control">
                 {% if movie.archive %}
                 <a href="{% url 'movie_remove_archive' movie.pk %}" class="movie_archive_link"
-                   style="background-color:#00bf52;">Опубликовать</a>
+                   style="background-color:#00bf52;">{% trans 'Опубликовать' %}</a>
                 {% else %}
-                <a href="{% url 'movie_add_archive' movie.pk %}" class="movie_archive_link">В архив</a>
+                <a href="{% url 'movie_add_archive' movie.pk %}" class="movie_archive_link">{% trans 'В архив' %}</a>
                 {% endif %}
-                <a href="" data-toggle="modal" data-target="#editModal" class="movie_edit_link">Изменить</a>
-                <a href="" data-toggle="modal" data-target="#exampleModal" class="movie_delete_link">Удалить</a>
+                <a href="" data-toggle="modal" data-target="#editModal" class="movie_edit_link">{% trans 'Изменить' %}</a>
+                <a href="" data-toggle="modal" data-target="#exampleModal" class="movie_delete_link">{% trans 'Удалить' %}</a>
             </div>
             {% endif %}
             <ul>
-                <li><span>Название:</span> <span>{{ movie.title }}</span></li>
-                <li><span>Слоган:</span> <span>{% if movie.tagline %}{{ movie.tagline }}{% else %}-{% endif %}</span>
+                <li><span>{% trans 'Название:' %}</span> <span>{{ movie.title }}</span></li>
+                <li><span>{% trans 'Слоган:' %}</span> <span>{% if movie.tagline %}{{ movie.tagline }}{% else %}-{% endif %}</span>
                 </li>
-                <li><span>Год:</span> <span>{{ movie.year }}</span></li>
-                <li><span>Режиссеры:</span> <span>{{ movie.directors_list }}</span></li>
-                <li><span>Актеры:</span> <span>{{ movie.actors_list }}</span></li>
-                <li><span>Страна:</span> <span>{{ movie.countries.all|refactorList }}</span></li>
-                <li><span>Категория:</span> <span>{{ movie.category.name }}</span></li>
-                <li><span>Жанры:</span> <span>{{ movie.genres.all|refactorList }}</span></li>
-                <li><span>Премьера:</span> <span>{{ movie.world_premiere }}</span></li>
+                <li><span>{% trans 'Год:' %}</span> <span>{{ movie.year }}</span></li>
+                <li><span>{% trans 'Режиссеры:' %}</span> <span>{{ movie.directors_list }}</span></li>
+                <li><span>{% trans 'Актеры:' %}</span> <span>{{ movie.actors_list }}</span></li>
+                <li><span>{% trans 'Страна:' %}</span> <span>{{ movie.countries.all|refactorList }}</span></li>
+                <li><span>{% trans 'Категория:' %}</span> <span>{{ movie.category.name }}</span></li>
+                <li><span>{% trans 'Жанры:' %}</span> <span>{{ movie.genres.all|refactorList }}</span></li>
+                <li><span>{% trans 'Премьера:' %}</span> <span>{{ movie.world_premiere }}</span></li>
             </ul>
         </div>
     </div>
     <div class="movie_description_block">
-        <p class="movie_description">Описание</p>
+        <p class="movie_description">{% trans 'Описание' %}</p>
         <p class="movie_description" style="color:#ffe4c7;">{{ movie.description }}</p>
     </div>
     <hr color="grey">
-    {% if movie.images.all or request.user|isRole:"Админ" %}
+    {% if movie.images.all or request.user.profile.admin %}
     <div class="movie_image_block">
-        <p class="movie_description">Кадры из фильма</p>
-        {% for image in movie.images.all %}
-        <img src="{{ image.url }}" class="movie_cadr" alt="">
-        {% endfor %}
-        {% if request.user|isRole:"Админ" %}
-        <label for="add_image" class="add_image_label">
-            <div class="add_image">
-                +
-            </div>
-        </label>
-        <input type="file" id="add_image">
-        {% endif %}
+        <p class="movie_description">{% trans 'Кадры из фильма' %}</p>
+        <div class="movie_image_list">
+
+            {% for image in movie.images.all %}
+            <img src="{{ image.image.url }}" class="movie_cadr" alt="">
+            {% endfor %}
+            {% if request.user.profile.admin %}
+            <form action="{% url 'add_movie_image' movie.pk %}" method="post" enctype="multipart/form-data" style="
+                display: flex;
+                flex-direction: column;
+                width: fit-content;
+                margin-bottom: 30px;
+                justify-content: center;">
+                {% csrf_token %}
+                <label for="add_image" class="add_image_label" id="add_image_label">
+                    <div class="add_image" id="add_image_div">
+                        +
+                    </div>
+                </label>
+                <input type="file" id="add_image" name="image" onchange="file_name(this)">
+                <button type="submit" style="border-radius: 5px;
+                    border: none;
+                    background: #ffa75a;">{% trans 'Отправить' %}</button>
+            </form>
+            {% endif %}
+        </div>
+
     </div>
     {% endif %}
     <div class="movie_video_block">
@@ -344,14 +362,14 @@
         {% endif %}
     </div>
     <div class="movie_reviews_block">
-        <h3 class="movie_reviews_title">Оставить отзыв</h3>
+        <h3 class="movie_reviews_title">{% trans 'Оставить отзыв' %}</h3>
         {% if request.user.is_authenticated %}
         <form action="{% url 'review_add' movie.pk %}" class="review_form" method="post">
             {% csrf_token %}
-           <!-- <div class="review_form_item">
-                <label for="">Ваш ник</label>
-                <input type="text" placeholder="Ник">
-            </div>-->
+            <!-- <div class="review_form_item">
+                 <label for="">Ваш ник</label>
+                 <input type="text" placeholder="Ник">
+             </div>-->
             <div class="review_form_item">
                 <label for="">Отзыв</label>
                 <textarea name="text" id="" cols="30" required rows="5" placeholder="Отзыв"></textarea>
@@ -359,14 +377,14 @@
             <button type="submit">Отправить</button>
         </form>
         {% else %}
-        <p class="error404">Только авторизованные пользователи могут оставлять отзывы</p>
+        <p class="error404">{% trans 'Только авторизованные пользователи могут оставлять отзывы' %}</p>
         {% endif %}
         <div class="movie_reviews_list">
-            <h3 class="movie_reviews_title">Отзывы ({{ reviews.count }})</h3>
+            <h3 class="movie_reviews_title">{% trans 'Отзывы' %} ({{ reviews.count }})</h3>
             {% for review in reviews %}
             <div class="review_item">
                 <div class="reviewer_user_info">
-                    <i>{{ review.user.last_name }}  {{ review.user.first_name }}</i>
+                    <i>{{ review.user.last_name }} {{ review.user.first_name }}</i>
                     <span>{{ review.date }}</span>
                 </div>
                 <div class="review_text">
@@ -377,4 +395,20 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block script %}
+<script>
+    function file_name(r){
+        data = document.getElementById('add_image_div')
+        if (r.files.length === 0){
+            data.innerHTML = "+";
+            data.style = 'border:1px dashed grey;color:grey';
+        }
+        else{
+        var z = r.files[0].name;
+            data.innerHTML = "<img src={% static "img/accept.svg" %} width=100>";
+            data.style = 'border:1px solid #a5eb78;color:#a5eb78;';
+        }
+    }
+</script>
 {% endblock %}

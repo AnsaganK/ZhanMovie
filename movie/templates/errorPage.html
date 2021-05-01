@@ -31,12 +31,12 @@
 <div class="movie_detail">
     <div class="error">
         <h3 class="errorTitle">
-            Ошибка
+            {% trans 'Ошибка' %}
         </h3>
         <div class="errorDescription">
-            Для просмотра содержимого вам нужно оформить подписку
+            {% trans 'Для просмотра содержимого вам нужно оформить подписку' %}
         </div>
-        <div class="error_link_wrap"><a href="{% url 'subscription' %}" class="error_link">Оформить подписку</a></div>
+        <div class="error_link_wrap"><a href="{% url 'subscription' %}" class="error_link">{% trans 'Оформить подписку' %}</a></div>
     </div>
 </div>
 {% endblock %}

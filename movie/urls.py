@@ -1,7 +1,13 @@
+from django.conf.urls import url
 from django.contrib.auth import views as acc
-from django.urls import path
+from django.urls import path, include
 
 from .views import *
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+
+router.register(r'moviese', MovieViewSet)
 
 urlpatterns = [
     path('', index, name="index"),
@@ -9,19 +15,28 @@ urlpatterns = [
     path('movies/<int:pk>', movie_detail, name="movie_detail"),
     path('movie_delete/<int:pk>', movie_delete, name="movie_delete"),
     path('movie_add/', movie_add, name="movie_add"),
+    path('add_movie_image/<int:pk>', add_movie_image, name="add_movie_image"),
     path('movie_update/<int:pk>', movie_update, name="movie_update"),
+    path('movie_delete/<int:pk>', movie_delete, name="movie_delete"),
+    path('movie_delete_for_settings/<int:pk>', movie_delete_for_settings, name="movie_delete_for_settings"),
     path('movie_add_archive/<int:pk>', movie_add_archive, name="movie_add_archive"),
     path('movie_remove_archive/<int:pk>', movie_remove_archive, name="movie_remove_archive"),
     path('search/', search, name="search"),
     path('genre_delete/<int:pk>', genre_delete, name="genre_delete"),
     path('review_add/<int:pk>', review_add, name="review_add"),
     path('cabinet/', cabinet, name="cabinet"),
+    path('edit/', edit_user, name="edit_user"),
     path('category_add/', category_add, name="category_add"),
     path('category_delete/<int:pk>', category_delete, name="category_delete"),
 
     path('genre_add/', genre_add, name="genre_add"),
     path('genre_delete/<int:pk>', genre_delete, name="genre_delete"),
+
+    path('subscription_add/', subscription_add, name="subscription_add"),
+    path('subscription_delete/', subscription_delete, name="subscription_delete"),
 ]
+
+
 
 urlpatterns += [
     path('settings/categories', settings_categories, name="settings_categories"),
@@ -44,3 +59,4 @@ urlpatterns += [
     path('accounts/password-change/done/', acc.PasswordChangeDoneView.as_view(), name='password_change_done'),
     path('accounts/password-change', acc.PasswordChangeView.as_view(), name='password_change'),
 ]
+

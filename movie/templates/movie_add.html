@@ -20,39 +20,39 @@
             <label for="tab-btn-3">Қазақ</label>
 
             <div id="content-1" class="form_content">
-                <div class="form_item"><label for="">Название</label><input type="text" name="title_ru"
+                <div class="form_item"><label for="">{% trans 'Название' %}</label><input type="text" name="title_ru"
                                                                             placeholder="Название на русском"></div>
-                <div class="form_item"><label for="">Слоган</label><textarea name="tagline_ru" id=""
+                <div class="form_item"><label for="">{% trans 'Слоган' %}</label><textarea name="tagline_ru" id=""
                                                                              rows="2"
                                                                              placeholder="Слоган на русском"></textarea>
                 </div>
-                <div class="form_item"><label for="">Описание</label><textarea name="description_ru" id=""
+                <div class="form_item"><label for="">{% trans 'Описание' %}</label><textarea name="description_ru" id=""
                                                                                rows="7"
                                                                                placeholder="Описание на русском"></textarea>
                 </div>
             </div>
             <div id="content-2" class="form_content">
-                <div class="form_item"><label for="">Название</label><input type="text" name="title_en"
+                <div class="form_item"><label for="">{% trans 'Название' %}</label><input type="text" name="title_en"
                                                                             placeholder="Название на английском">
                 </div>
-                <div class="form_item"><label for="">Слоган</label><textarea name="tagline_en" id=""
+                <div class="form_item"><label for="">{% trans 'Слоган' %}</label><textarea name="tagline_en" id=""
                                                                              rows="2"
                                                                              placeholder="Слоган на английском"></textarea>
                 </div>
-                <div class="form_item"><label for="">Описание</label><textarea name="description_en" id=""
+                <div class="form_item"><label for="">{% trans 'Описание' %}</label><textarea name="description_en" id=""
                                                                                rows="7"
                                                                                placeholder="Описание на английском"></textarea>
                 </div>
             </div>
             <div id="content-3" class="form_content">
-                <div class="form_item"><label for="">Название</label><input type="text" name="title_kk"
+                <div class="form_item"><label for="">{% trans 'Название' %}</label><input type="text" name="title_kk"
                                                                             placeholder="Название на казахском">
                 </div>
-                <div class="form_item"><label for="">Слоган</label><textarea name="tagline_kk" id=""
+                <div class="form_item"><label for="">{% trans 'Слоган' %}</label><textarea name="tagline_kk" id=""
                                                                              rows="2"
                                                                              placeholder="Слоган на казахском"></textarea>
                 </div>
-                <div class="form_item"><label for="">Описание</label><textarea name="description_kk" id=""
+                <div class="form_item"><label for="">{% trans 'Описание' %}</label><textarea name="description_kk" id=""
                                                                                rows="7"
                                                                                placeholder="Описание на казахском"></textarea>
                 </div>
@@ -60,13 +60,13 @@
 
         </div>
         <div class="form_content">
-            <div class="form_item"><label for="">Актеры</label><textarea name="actors_list" id=""
+            <div class="form_item"><label for="">{% trans 'Актеры' %}</label><textarea name="actors_list" id=""
                                                                          rows="5"></textarea>
             </div>
-            <div class="form_item"><label for="">Режиссеры</label><textarea name="directors_list" id=""
+            <div class="form_item"><label for="">{% trans 'Режиссеры' %}</label><textarea name="directors_list" id=""
                                                                             rows="5"></textarea>
             </div>
-            <div class="form_item"><label for="">Страны</label>
+            <div class="form_item"><label for="">{% trans 'Страны' %}</label>
                 <div class="filter_items">
                     {% for country in countries %}
                     <div class="filter_item">
@@ -77,17 +77,17 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="form_item"><label for="">Категория</label>
+            <div class="form_item"><label for="">{% trans 'Категория' %}</label>
                 <select name="category" id="">
                     {% for category in categories %}
                     <option value="{{ category.pk }}">{{ category.name }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div class="form_item"><label for="">Постер</label><input name="poster" type="file"></div>
-            <div class="form_item"><label for="">Видеофайл</label><input name="video" type="file"></div>
-            <div class="form_item"><label for="">Ссылка на видео</label><input name="video_url" type="url"></div>
-            <div class="form_item"><label for="">Жанры</label>
+            <div class="form_item"><label for="">{% trans 'Постер' %}</label><input name="poster" type="file"></div>
+            <div class="form_item"><label for="">{% trans 'Видеофайл' %}</label><input name="video" type="file"></div>
+            <div class="form_item"><label for="">{% trans 'Ссылка на видео' %}</label><input name="video_url" type="url"></div>
+            <div class="form_item"><label for="">{% trans 'Жанры' %}</label>
                 <div class="filter_items">
                     {% for genre in genres %}
                     <div class="filter_item">
@@ -102,20 +102,20 @@
                 <label for="">{% trans 'Премьера в мире' %}</label><input name="world_premiere" type="date">
             </div>
             <div class="form_item">
-                <label for="">Год</label><input type="number" name="year" style="text-align: center">
+                <label for="">{% trans 'Год' %}</label><input type="number" name="year" style="text-align: center">
             </div>
             <div class="form_item">
-                <label for="">По подписке</label>
+                <label for="">{% trans 'По подписке' %}</label>
                 <input type="checkbox" name="subscription">
             </div>
             <div class="form_item">
-                <label for="">Показывать в слайдере</label><input name="best" type="checkbox"
+                <label for="">{% trans 'Показывать в слайдере' %}</label><input name="best" type="checkbox"
                                                                   style="text-align: center">
             </div>
 
         </div>
 
-        <button type="submit" class="primary_button">Создать</button>
+        <button type="submit" class="primary_button">{% trans 'Создать' %}</button>
 
     </form>
 </div>

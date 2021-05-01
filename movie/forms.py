@@ -2,13 +2,19 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Movie, Review, Category, Genre
+from .models import Movie, Review, Category, Genre, MovieImages, Profile
 
 
 class MovieForm(forms.ModelForm):
     class Meta:
         model = Movie
         exclude = ('url',)
+
+
+class MovieImageForm(forms.ModelForm):
+    class Meta:
+        model = MovieImages
+        fields = ("image",)
 
 
 class ReviewForm(forms.ModelForm):
@@ -21,6 +27,18 @@ class UserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1',)
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name')
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('birth_date', 'photo')
 
 
 class CategoryForm(forms.ModelForm):

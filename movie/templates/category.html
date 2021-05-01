@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 
 {% block title %}
 {{ category.title }}
@@ -13,6 +13,7 @@
 {% include 'include/movie_slider.html' %}
 <div class="content">
     {% include 'include/menu.html' %}
+    {% if movies %}
     <div class="movies_content">
         <div class="movies_grid">
             <div class="movies_grid" style="width:100%;">
@@ -21,7 +22,7 @@
                     <a href="{{ movie.get_absolute_url }}">
                         {% if movie.subscription %}
                             <div class="subscription_line">
-                                Подписка
+                                {% trans 'Подписка' %}
                             </div>
                         {% endif %}
                         <img class="movie_img" src="{% if movie.poster %}{{ movie.poster.url }}{% else %}{% static 'img/video.png' %}{% endif %}">
@@ -39,12 +40,12 @@
         </div>
         <div class="movie_filter">
             <form method="get">
-                <span>Жанры</span>
+                <span>{% trans 'Жанры' %}</span>
 
                 <div class="filter_items">
                     {% for genre in genres %}
                     <div class="filter_item">
-                        <input class="filter_item_input" type="checkbox" name="genres" value="{{ genre.pk }}"
+                        <input class="filter_item_input" type="checkbox" name="genre" {% if genre.pk in genres_filter %} checked {% endif %}  value="{{ genre.pk }}"
                                id="genre_{{genre.pk}}">
                         <label for="genre_{{genre.pk}}" class="filter_item_label">{{ genre.name }}</label>
                     </div>
@@ -52,24 +53,24 @@
 
                 </div>
                 <hr color="white">
-                <span>Года</span>
+                <span>{% trans 'Года' %}</span>
 
                 <div class="filter_items">
                     {% for year in years %}
                     <div class="filter_item">
-                        <input class="filter_item_input" type="checkbox" name="years" value="{{ year }}" id="year_{{year}}">
+                        <input class="filter_item_input" type="checkbox" name="year" {% if year.year in year_filter %} checked {% endif %} value="{{ year.year }}" id="year_{{year}}">
                         <label for="year_{{year}}" class="filter_item_label">{{ year.year }}</label>
 
                     </div>
                     {% endfor %}
                 </div>
                 <hr color="white">
-                <span>Страны</span>
+                <span>{% trans 'Страны' %}</span>
 
                 <div class="filter_items">
                     {% for country in countries %}
                     <div class="filter_item">
-                        <input class="filter_item_input" type="checkbox" name="countries" value="{{ country.pk }}"
+                        <input class="filter_item_input" type="checkbox" name="country" {% if country.pk in country_filter %} checked {% endif %} value="{{ country.pk }}"
                                id="country_{{country.pk}}">
                         <label for="country_{{country.pk}}" class="filter_item_label">{{ country.name }}</label>
                     </div>
@@ -77,7 +78,7 @@
 
                 </div>
                 <hr color="white">
-                <span>Рейтинг</span>
+<!--                <span>Рейтинг</span>
 
                 <div class="filter_items filter_stars">
                     {% for star in stars %}
@@ -88,11 +89,23 @@
                         </label>
                     </div>
                     {% endfor %}
-                </div>
-                <button type="submit" class="primary_button">Фильтровать</button>
+                </div>-->
+                <button type="submit" class="primary_button">{% trans 'Фильтровать' %}</button>
             </form>
         </div>
     </div>
+    {% else %}
+    <div class="movies_content">
+        <span class="movies_not_found" style="text-align: center;
+    width: 100%;
+    display: block;
+    margin: 50px auto;
+    color: wheat;
+    font-size: 32px;">
+            {% trans 'Фильмы не найдены' %}
+        </span>
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}

@@ -4,8 +4,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
-from movie.forms import MovieForm, ReviewForm, UserForm, CategoryForm, GenreForm
-from movie.models import Category, Movie, Genre, Country, Review, Role
+
+from rest_framework import viewsets
+from movie.forms import MovieForm, ReviewForm, UserForm, CategoryForm, GenreForm, MovieImageForm, UserEditForm, \
+    ProfileForm
+from movie.models import Category, Movie, Genre, Country, Review, Role, HistoryUser
+from movie.serializers import MovieSerializer
 
 
 def index(request):
@@ -24,7 +28,18 @@ def category(request, pk):
     genres = Genre.objects.all()
     countries = Country.objects.all()
     best_movies = Movie.objects.filter(best=True).filter(archive=False)
-
+    genres_filter = [int(i) for i in request.GET.getlist("genre")]
+    year_filter = [int(i) for i in request.GET.getlist("year")]
+    country_filter = [int(i) for i in request.GET.getlist("country")]
+    if request.GET:
+        if request.GET.getlist("genre"):
+            movies = movies.filter(Q(genres__in=request.GET.getlist("genre"))
+                               ).distinct()
+        if request.GET.getlist("year"):
+            movies = movies.filter(Q(year__in=request.GET.getlist("year")))
+        if request.GET.getlist("country"):
+            movies = movies.filter(
+                                   Q(countries__in=request.GET.getlist("country")))
     paginator = Paginator(movies, 8)
     page = request.GET.get('page')
     try:
@@ -36,7 +51,8 @@ def category(request, pk):
 
     return render(request, 'category.html',
                   {'categories': categories, 'categoryName': category.name, "movies": query, "years": years,
-                   "genres": genres, "best_movies": best_movies, "countries": countries})
+                   "genres": genres, "best_movies": best_movies, "countries": countries,
+                   "genres_filter": genres_filter, "year_filter": year_filter, "country_filter": country_filter})
 
 
 def get_right_url_youtube(link):
@@ -46,11 +62,10 @@ def get_right_url_youtube(link):
 def movie_detail(request, pk):
     user = request.user
     movie = Movie.objects.get(pk=pk)
-
-    if (user.is_anonymous and movie.subscription == True):
-        return render(request, "errorPage.html")
-    if not user.is_anonymous:
-        if (user.profile.role.name_en == "No subscription" and movie.subscription == True):
+    if movie.subscription:
+        if user.is_anonymous:
+            return render(request, "errorPage.html")
+        if not user.profile.subscription and not user.profile.admin:
             return render(request, "errorPage.html")
     video_link = None
     if movie.video_url:
@@ -64,6 +79,11 @@ def movie_detail(request, pk):
     genres = Genre.objects.all()
     countries = Country.objects.all()
     reviews = movie.reviews.all()
+    if not user.is_anonymous:
+        history = HistoryUser.objects.filter(user=user)
+        if (history and history.first().movie != movie) or not history:
+            h = HistoryUser(user=user, movie=movie)
+            h.save()
     return render(request, 'movie_detail.html',
                   {'movie': movie, "video_link": video_link,
                    'genresIds': genresIds, 'countriesIds': countriesIds,
@@ -90,13 +110,24 @@ def movie_add(request):
             else:
                 movie.url = str(movie.pk)
             movie.save()
-            return redirect("/category/{}".format(category.int))
+            return redirect("/category/{}".format(category.pk))
         else:
             print(form.errors)
     genres = Genre.objects.all()
     categories = Category.objects.all()
     countries = Country.objects.all()
     return render(request, 'movie_add.html', {"categories": categories, "genres": genres, "countries": countries})
+
+
+def add_movie_image(request, pk):
+    movie = Movie.objects.get(pk=pk)
+    if request.method == "POST":
+        form = MovieImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = form.save()
+            data.movie = movie
+            data.save()
+    return redirect(movie.get_absolute_url())
 
 
 def movie_update(request, pk):
@@ -144,6 +175,27 @@ def movie_delete(request, pk):
     category = movie.category
     movie.delete()
     return redirect('/category/{}'.format(category.pk))
+
+def movie_delete_for_settings(request, pk):
+    movie = Movie.objects.get(pk=pk)
+    category = movie.category
+    movie.delete()
+    return redirect('/settings/movies')
+
+def subscription_add(request):
+    user = request.user
+    if user.is_authenticated:
+        user.profile.subscription = True
+        user.save()
+    return redirect('/cabinet')
+
+
+def subscription_delete(request):
+    user = request.user
+    if user.is_authenticated:
+        user.profile.subscription = False
+        user.save()
+    return redirect('/cabinet')
 
 
 def settings(request):
@@ -240,11 +292,6 @@ def signup(request):
         passwordCheck = request.POST["password1"] != request.POST["password2"]
         if form.is_valid() and not (emailFound or passwordCheck):
             user = form.save()
-            role = Role.objects.filter(name_en="No subscription").first()
-            if not role:
-                role = Role.objects.create(name_ru="Без подписки", name_en="No subscription", name_kk="Жазылым жоқ")
-            user.profile.role = role
-            user.save()
 
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect("index")
@@ -257,7 +304,26 @@ def signup(request):
 
 def cabinet(request):
     user = request.user
-    return render(request, 'cabinet.html', {"user": user})
+    history = HistoryUser.objects.filter(user=user)[:8]
+    reviews = user.reviews.all()[:8]
+    return render(request, 'cabinet.html', {"user": user, "history": history, "reviews": reviews})
+
+def edit_user(request):
+    user = request.user
+    if request.method == "POST":
+        form = UserEditForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+        form2 = ProfileForm(request.POST, request.FILES, instance=user.profile)
+        if form2.is_valid():
+            form2.save()
+        else:
+            print(form.errors)
+
+        return redirect('/cabinet')
+    return render(request, "edit.html", {"user": user})
 
 
 def category_add(request):
@@ -293,3 +359,8 @@ def genre_delete(request, pk):
 def subscription(request):
     user = request.user
     return render(request, "subscription.html")
+
+
+class MovieViewSet(viewsets.ModelViewSet):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer

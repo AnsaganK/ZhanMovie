@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load movie_tags %}
+{% load i18n %}
+
+{% block title %}
+Редактирование
+{% endblock %}
+
+{% block head %}
+<style>
+    .login_form_item input{
+        width:200px;
+    }
+    #photo_user_label{
+        margin: 20px auto;
+        display: block;
+        text-align: center;
+        width:fit-content;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="movie_detail">
+    <h3 style="color:wheat;border-bottom:1px solid wheat;width:fit-content;margin:0px auto;padding:0px 20px;">{% trans 'Изменить профиль' %}</h3>
+    <form action="{% url 'edit_user' %}" style="width:500px; margin:0px auto;" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <label for="photo_user" id="photo_user_label">
+            <img src="{% if request.user.profile.photo %}{{ request.user.profile.photo.url }}{% else %}{% static 'img/anonym.png' %}{% endif %}" alt="" class="cabinet_user_img">
+        </label>
+        <input type="file" name="photo" id="photo_user" onchange="file_name(this)" style="display:none;">
+        <div class="login_form_item">
+            <label for="">{% trans 'Ник' %}</label>
+            <input type="text" name="username" value="{{ user.username }}" required>
+        </div>
+        <div class="login_form_item">
+            <label for="">{% trans 'Имя' %}</label>
+            <input type="text" name="first_name" value="{{ user.first_name }}" required>
+        </div>
+        <div class="login_form_item">
+            <label for="">{% trans 'Фамилия' %}</label>
+            <input type="text" name="last_name" value="{{ user.last_name }}" required>
+        </div>
+        <div class="login_form_item">
+            <label for="">{% trans 'Дата рождения' %}</label>
+            <input type="date" name="birth_date" value="{{ request.user.profile.birth_date|dateValid }}">
+        </div>
+        <button type="submit" class="form_button">Сохранить</button>
+
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    function file_name(r){
+        data = document.getElementById('photo_user_label')
+        if (r.files.length === 0){
+            data.children[0].style = '';
+        }
+        else{
+        var z = r.files[0].name;
+            data.children[0].style = 'border: 2px solid #24c0f7;padding: 5px;';
+        }
+    }
+</script>
+{% endblock %}

@@ -1,12 +1,197 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load movie_tags %}
+{% load i18n %}
 
 {% block title %}
-Личный кабинет
+{% trans 'Личный кабинет' %}
+{% endblock %}
+
+{% block head %}
+<style>
+    .subscription_delete_link{
+        width:fit-content;
+        display:block;
+        border:1px solid #ff4848;
+        padding:10px;
+        margin:10px 0px;
+        border-radius:5px;
+        color:white;
+    }
+    .subscription_add_link{
+        width:fit-content;
+        display:block;
+        border:1px solid #48a7cc;
+        padding:10px;
+        margin:10px 0px;
+        border-radius:5px;
+        color:white;
+    }
+    .subscription_status{
+        color:wheat;
+    }
+    .cabinet{
+        display:flex;
+        flex-direction:row;
+    }
+    .cabinet_user_info{
+        border-radius: 4px;
+        height: 100%;
+        border: 1px solid #cacaca;
+        padding: 20px;
+        text-align: center;
+        width: 350px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        color:white;
+    }
+    .cabinet_user_history{
+        flex:1;
+    }
+    .cabinet_title{
+        color:wheat;
+        text-align:end;
+    }
+    .user_info_item{
+        width:90%;
+        display:flex;
+        justify-content:space-between;
+        margin-bottom:20px;
+    }
+    .last_movies{
+        display:flex;
+        justify-content:center;
+        flex-wrap:wrap;
+    }
+    .last_movie{
+        display: flex;
+        margin: 10px;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+    }
+    .last_reviews{
+        display:flex;
+        align-items:center;
+        flex-direction:column;
+        justify-content:center;
+    }
+    .last_review{
+        width: 90%;
+        display:flex;
+        color: white;
+        margin-bottom:20px;
+        border:1px solid antiquewhite;
+    }
+    .cabinet_movie_title{
+        color:white;
+    }
+    .cabinet_movie_time{
+        color:grey;
+    }
+    .subscription_line {
+        font-size: 12px;
+        padding: 7px;
+    }
+    .review_movie_title{
+        display: flex;
+        background-color: wheat;
+        color: black;
+        margin: 0px;
+        align-items: center;
+        padding: 10px;
+    }
+    .review_movie_text{
+        display: flex;
+        overflow-wrap: anywhere;
+        align-items: center;
+        margin-left: 15px;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
 <div class="movie_detail">
-    <h3>Личный кабинет</h3>
-    {{ request.user.username }}
+
+    <h3 class="cabinet_title">{% trans 'Личный кабинет' %}</h3>
+    <hr color="grey">
+    <div class="cabinet">
+        <div class="cabinet_user_info">
+            <a href="{% url 'edit_user' %}" style="position: absolute;align-self: flex-end;"><img src="{% static 'img/edit.svg' %}"  width="20px" alt=""></a>
+            {% if request.user.profile.photo %}
+            <img src="{{ request.user.profile.photo.url }}" alt="" class="cabinet_user_img">
+            {% else %}
+            <img src="{% static 'img/anonym.png' %}" alt="" class="cabinet_user_img">
+            {% endif %}
+            <p>{{ request.user.username }}</p>
+            <div class="user_info_item">
+                <span>{% trans 'Имя' %}</span>
+                <span>{{ request.user.first_name }}</span>
+            </div>
+            <div class="user_info_item">
+                <span>{% trans 'Фамилия' %}</span>
+                <span>{{ request.user.last_name }}</span>
+            </div>
+            <div class="user_info_item">
+                <span>{% trans 'Email' %}</span>
+                <span>{{ request.user.email }}</span>
+            </div>
+            <div class="user_info_item">
+                <span>{% trans 'Дата рождения' %}</span>
+                <span>{% if request.user.profile.birth_date %}{{ request.user.profile.birth_date }}{% else %}{% trans 'Не указано' %}{% endif %}</span>
+            </div>
+
+            {% if request.user.profile.subscription %}
+            <span class="subscription_status">{% trans 'У вас есть подписка' %}</span>
+            <a href="{% url 'subscription_delete' %}" class="subscription_delete_link">{% trans 'Отменить подписку' %}</a>
+            {% else %}
+            <span class="subscription_status">{% trans 'У вас нет подписки' %}</span>
+            <a href="{% url 'subscription' %}" class="subscription_add_link">{% trans 'Оформить подписку' %}</a>
+            {% endif %}
+        </div>
+        <div class="cabinet_user_history">
+            <p style="
+                text-align: center;
+                font-size: 24px;
+                color: antiquewhite;
+            ">{% trans 'Последние просмотренные' %}</p>
+            <div class="last_movies">
+
+
+                {% for i in history %}
+
+                <div class="last_movie">
+                    <a href="{{ i.movie.get_absolute_url }}">
+                        {% if i.movie.subscription %}
+                            <div class="subscription_line">
+                                {% trans 'Подписка' %}
+                            </div>
+                        {% endif %}
+                        <img src="{{ i.movie.poster.url }}" width="150" height="200" alt="" style="box-shadow:0px 0px 3px 3px #2b2b2b;">
+                    </a>
+                    <span class="cabinet_movie_title">{{ i.movie.title }}</span>
+                    <span class="cabinet_movie_time">{{ i.date|dateDifference }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            <hr color="grey">
+            <p style="
+                text-align: center;
+                font-size: 24px;
+                color: antiquewhite;
+
+            ">
+                {% trans 'Последние отзывы' %}</p>
+            <div class="last_reviews">
+                {% for i in reviews %}
+                <div class="last_review">
+                    <span class="review_movie_title">{{ i.movie.title }}</span>
+                    <span class="review_movie_text">{{ i.text }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

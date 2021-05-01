@@ -11,7 +11,8 @@ from django.shortcuts import reverse
 class Category(models.Model):
     name = models.CharField("Категория", max_length=150, null=True, blank=True)
     description = models.TextField("Описание", null=True, blank=True)
-    #url = models.SlugField(max_length=160, unique=True)
+
+    # url = models.SlugField(max_length=160, unique=True)
 
     def __str__(self):
         return self.name
@@ -27,7 +28,8 @@ class Category(models.Model):
 class Genre(models.Model):
     name = models.CharField("Имя", max_length=100, null=True, blank=True)
     description = models.TextField("Описание", null=True, blank=True)
-    #url = models.SlugField(max_length=160, unique=True)
+
+    # url = models.SlugField(max_length=160, unique=True)
 
     def __str__(self):
         return self.name
@@ -113,11 +115,12 @@ class Movie(models.Model):
 
 
 class MovieImages(models.Model):
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, verbose_name="Кадры из фильма", related_name="images")
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, verbose_name="Кадры из фильма", related_name="images",
+                              null=True, blank=True)
     image = models.FileField(upload_to="movieImages")
 
     def __str__(self):
-        return self.movie.title
+        return str(self.id)
 
     class Meta:
         verbose_name = "Кадр из фильма"
@@ -146,14 +149,30 @@ class Role(models.Model):
         verbose_name_plural = "Роли"
 
 
+class HistoryUser(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return self.movie.title
+
+    class Meta:
+        verbose_name = "История пользователя"
+        verbose_name_plural = "Истории пользователей"
+        ordering = ["-date"]
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     birth_date = models.DateField(null=True, blank=True)
     role = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, blank=True, related_name="profiles")
     photo = models.FileField(upload_to="photoUsers", null=True, blank=True, verbose_name="Фотография")
+    subscription = models.BooleanField(default=False)
+    admin = models.BooleanField(default=False)
+    #subscription_date = models.DateTimeField(null=True, blank=True)
+    #subscription_day = models.IntegerField(null=True, blank=True, default=0)
 
-    def __str__(self):
-        return self.user.username
+
 
     class Meta:
         verbose_name = "Профиль"
@@ -161,11 +180,13 @@ class Profile(models.Model):
 
 
 class Review(models.Model):
-    user = models.ForeignKey(User,null=True, blank=True, on_delete=models.CASCADE, related_name="reviews", verbose_name="Пользователь")
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name="reviews",
+                             verbose_name="Пользователь")
     movie = models.ForeignKey(Movie, null=True, blank=True, on_delete=models.CASCADE, related_name="reviews")
     text = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     rating = models.IntegerField(null=True, blank=True)
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

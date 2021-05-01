@@ -1,57 +1,57 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
 
 {% endblock %}
 
 
-
 {% block content %}
 <div class="movie_detail">
     <div class="login_form">
-        <h3>Регистрация</h3>
+        <h3>{% trans 'Регистрация' %}</h3>
 
         {% if userNameFound %}
-        <p class="form_errors">Пользователь с таким ником уже есть в системе</p>
+        <p class="form_errors">{% trans 'Пользователь с таким ником уже есть в системе' %}</p>
         {% endif %}
         {% if passwordCheck %}
-        <p class="form_errors">Пароли не совпадают</p>
+        <p class="form_errors">{% trans 'Пароли не совпадают' %}</p>
         {% endif %}
 
         {% if emailFound %}
-        <p class="form_errors">Пользователь с такой почтой уже есть в системе</p>
+        <p class="form_errors">{% trans 'Пользователь с такой почтой уже есть в системе' %}</p>
         {% endif %}
         <form action="{% url 'signup' %}" method="post">
             {% csrf_token %}
             <div class="login_form_item">
-                <label for="">Ник</label>
+                <label for="">{% trans 'Ник' %}</label>
                 <input type="text" name="username" required>
             </div>
 
             <div class="login_form_item">
-                <label for="">Почта</label>
+                <label for="">{% trans 'Почта' %}</label>
                 <input type="email" name="email" required>
             </div>
             <div class="login_form_item">
-                <label for="">Имя</label>
+                <label for="">{% trans 'Имя' %}</label>
                 <input type="text" name="first_name" required>
             </div>
             <div class="login_form_item">
-                <label for="">Фамилия</label>
+                <label for="">{% trans 'Фамилия' %}</label>
                 <input type="text" name="last_name" required>
             </div>
 
             <div class="login_form_item">
-                <label for="">Пароль</label>
+                <label for="">{% trans 'Пароль' %}</label>
                 <input type="password" name="password1" required>
             </div>
             <div class="login_form_item">
-                <label for="">Пароль(повтор)</label>
+                <label for="">{% trans 'Пароль(повтор)' %}</label>
                 <input type="password" name="password2" required>
             </div>
-            <button type="submit">Регистрация</button>
+            <button type="submit">{% trans 'Регистрация' %}</button>
         </form>
-        <a href="{% url 'login' %}">Есть аккаунт, войдите</a>
+        <a href="{% url 'login' %}">{% trans 'Есть аккаунт, войдите' %}</a>
     </div>
 </div>
 {% endblock %}

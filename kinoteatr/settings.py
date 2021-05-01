@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'modeltranslation',
-    'movie'
+    'rest_framework',
+    'movie',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,10 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+REST_FRAMEWORK = {
+    #'DEFAULT_PERMISSION_CLASSES':[
+    #    'rest_framework.permissions.IsAdminUser',
+    #],
+    'PAGE_SIZE': 10
+}
