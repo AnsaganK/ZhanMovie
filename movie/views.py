@@ -31,7 +31,12 @@ def category(request, pk):
     genres_filter = [int(i) for i in request.GET.getlist("genre")]
     year_filter = [int(i) for i in request.GET.getlist("year")]
     country_filter = [int(i) for i in request.GET.getlist("country")]
+    if movies:
+        showFilter = True
+    else:
+        showFilter = False
     if request.GET:
+        showFilter = True
         if request.GET.getlist("genre"):
             movies = movies.filter(Q(genres__in=request.GET.getlist("genre"))
                                ).distinct()
@@ -51,7 +56,7 @@ def category(request, pk):
 
     return render(request, 'category.html',
                   {'categories': categories, 'categoryName': category.name, "movies": query, "years": years,
-                   "genres": genres, "best_movies": best_movies, "countries": countries,
+                   "genres": genres, "best_movies": best_movies, "countries": countries, "showFilter": showFilter,
                    "genres_filter": genres_filter, "year_filter": year_filter, "country_filter": country_filter})
 
 
@@ -358,6 +363,8 @@ def genre_delete(request, pk):
 
 def subscription(request):
     user = request.user
+    if user.is_anonymous:
+        return render(request, "registration/login.html")
     return render(request, "subscription.html")
 
 

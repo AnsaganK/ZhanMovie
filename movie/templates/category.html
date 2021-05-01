@@ -13,8 +13,8 @@
 {% include 'include/movie_slider.html' %}
 <div class="content">
     {% include 'include/menu.html' %}
-    {% if movies %}
     <div class="movies_content">
+        {% if movies %}
         <div class="movies_grid">
             <div class="movies_grid" style="width:100%;">
                 {% for movie in movies %}
@@ -38,6 +38,17 @@
             {% include 'include/pagination.html' with page=movies %}
 
         </div>
+        {% else %}
+            <span class="movies_not_found" style="text-align: center;
+        width: 80%;
+        display: block;
+        margin: 50px auto;
+        color: wheat;
+        font-size: 32px;">
+                {% trans 'Фильмы не найдены' %}
+            </span>
+        {% endif %}
+        {% if showFilter %}
         <div class="movie_filter">
             <form method="get">
                 <span>{% trans 'Жанры' %}</span>
@@ -78,34 +89,11 @@
 
                 </div>
                 <hr color="white">
-<!--                <span>Рейтинг</span>
-
-                <div class="filter_items filter_stars">
-                    {% for star in stars %}
-                    <div class="filter_item">
-                        <input class="filter_item_input" type="checkbox" name="" id="10">
-                        <label for="10" class="filter_item_label">
-                            {{star}}
-                        </label>
-                    </div>
-                    {% endfor %}
-                </div>-->
                 <button type="submit" class="primary_button">{% trans 'Фильтровать' %}</button>
             </form>
         </div>
+        {% endif %}
     </div>
-    {% else %}
-    <div class="movies_content">
-        <span class="movies_not_found" style="text-align: center;
-    width: 100%;
-    display: block;
-    margin: 50px auto;
-    color: wheat;
-    font-size: 32px;">
-            {% trans 'Фильмы не найдены' %}
-        </span>
-    </div>
-    {% endif %}
 </div>
 
 {% endblock %}
