@@ -1,11 +1,11 @@
+import git
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.shortcuts import render, redirect
-
-
 from rest_framework import viewsets
+
 from movie.forms import MovieForm, ReviewForm, UserForm, CategoryForm, GenreForm, MovieImageForm, UserEditForm, \
     ProfileForm
 from movie.models import Category, Movie, Genre, Country, Review, Role, HistoryUser
@@ -367,6 +367,15 @@ def subscription(request):
         return render(request, "registration/login.html")
     return render(request, "subscription.html")
 
+
+def update_pull(request):
+    if request.method == 'POST':
+        repo = git.Repo('https://github.com/AnsaganK/ZhanMovie')
+        origin = repo.remotes.origin
+        origin.pull()
+        return 'Updated PythonAnywhere successfully', 200
+    else:
+        return 'Wrong event type', 400
 
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
