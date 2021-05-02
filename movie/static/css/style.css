@@ -3,6 +3,10 @@ body {
     padding: 0px;
     background-color: #dadada;
     font-family: 'Raleway', sans-serif;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+    justify-content:space-between;
 }
 
 ul {
@@ -41,7 +45,7 @@ a {
     width: 100%;
     padding: 5px;
     margin: 13px auto;
-    min-height: 100vh;
+    //min-height: 100vh;
 }
 
 .carousel-inner img {
@@ -75,7 +79,8 @@ a {
 
 .content {
     background-color: #344146;
-    min-height: 100vh;
+    //min-height: 100vh;
+    padding-bottom:30px;
     border-radius: 5px;
     margin: 10px auto;
 }
@@ -397,7 +402,7 @@ a {
 .movie_detail {
     border-radius: 5px;
     background-color: #344146;
-    min-height: 100vh;
+    //min-height: 100vh;
     padding: 20px;
     padding-bottom: 40px;
 }
