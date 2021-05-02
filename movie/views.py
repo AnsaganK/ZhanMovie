@@ -11,7 +11,7 @@ from rest_framework.views import APIView
 from movie.forms import MovieForm, ReviewForm, UserForm, CategoryForm, GenreForm, MovieImageForm, UserEditForm, \
     ProfileForm
 from movie.models import Category, Movie, Genre, Country, Review, Role, HistoryUser
-from movie.serializers import MovieSerializer, MovieDetailSerializer
+from movie.serializers import MovieSerializer, MovieDetailSerializer, CategorySerializer, GenreSerializer
 
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -510,3 +510,13 @@ class MovieRandomDetailApi(APIView):
         movie = random.choice(Movie.objects.all())
         serializer = MovieDetailSerializer(movie)
         return Response(serializer.data)
+
+
+class CategoryListApi(generics.ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class GenreListApi(generics.ListAPIView):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer

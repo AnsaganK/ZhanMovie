@@ -1,10 +1,12 @@
 from rest_framework import serializers
 from .models import *
 
+
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = '__all__'
+
 
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,3 +23,14 @@ class MovieDetailSerializer(serializers.ModelSerializer):
         model = Movie
         exclude = ('draft', )
 
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('name', 'name_ru', 'name_kk', 'name_en')
+
+
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = ('name', 'name_ru', 'name_kk', 'name_en')
