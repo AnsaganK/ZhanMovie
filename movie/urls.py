@@ -4,10 +4,10 @@ from django.urls import path, include
 
 from .views import *
 from rest_framework import routers
+from rest_framework.urlpatterns import format_suffix_patterns
 
-router = routers.DefaultRouter()
-
-router.register(r'moviese', MovieViewSet)
+#router = routers.DefaultRouter()
+#router.register(r'moviese', MovieViewSet)
 
 urlpatterns = [
     path('', index, name="index"),
@@ -36,7 +36,10 @@ urlpatterns = [
     path('subscription_delete/', subscription_delete, name="subscription_delete"),
 ]
 
-
+urlpatterns += [
+    url(r'^api/movies/$', MovieListApi.as_view()),
+    url(r'^api/movies/(?P<pk>[0-9]+)/$', MovieDetailApi.as_view()),
+]
 
 urlpatterns += [
     path('settings/categories', settings_categories, name="settings_categories"),
@@ -60,3 +63,4 @@ urlpatterns += [
     path('accounts/password-change', acc.PasswordChangeView.as_view(), name='password_change'),
 ]
 
+urlpatterns = format_suffix_patterns(urlpatterns)
