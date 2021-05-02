@@ -27,10 +27,10 @@ class MovieDetailSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('name', 'name_ru', 'name_kk', 'name_en')
+        fields = ('id', 'name', 'name_ru', 'name_kk', 'name_en')
 
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        fields = ('name', 'name_ru', 'name_kk', 'name_en')
+        fields = ('id', 'name', 'name_ru', 'name_kk', 'name_en')
