@@ -7,8 +7,8 @@ from django.conf.urls.static import static
 #from movie.urls import router
 
 urlpatterns = [
-    #url(r'^api/', include(router.urls)),
-    #url(r'api/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/', include('movie.url_api')),
+    url(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
 

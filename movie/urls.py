@@ -36,10 +36,6 @@ urlpatterns = [
     path('subscription_delete/', subscription_delete, name="subscription_delete"),
 ]
 
-urlpatterns += [
-    url(r'^api/movies/$', MovieListApi.as_view()),
-    url(r'^api/movies/(?P<pk>[0-9]+)/$', MovieDetailApi.as_view()),
-]
 
 urlpatterns += [
     path('settings/categories', settings_categories, name="settings_categories"),

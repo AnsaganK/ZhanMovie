@@ -1,3 +1,5 @@
+import random
+
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -9,7 +11,7 @@ from rest_framework.views import APIView
 from movie.forms import MovieForm, ReviewForm, UserForm, CategoryForm, GenreForm, MovieImageForm, UserEditForm, \
     ProfileForm
 from movie.models import Category, Movie, Genre, Country, Review, Role, HistoryUser
-from movie.serializers import MovieSerializer
+from movie.serializers import MovieSerializer, MovieDetailSerializer
 
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -382,6 +384,7 @@ class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
 
+'''
 @csrf_exempt
 def get_all_movies_api(request):
     if request.method == "GET":
@@ -490,7 +493,7 @@ class MovieDetail(APIView):
         movie = self.get_object(pk)
         movie.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
+'''
 
 class MovieListApi(generics.ListCreateAPIView):
     queryset = Movie.objects.all()
@@ -499,4 +502,11 @@ class MovieListApi(generics.ListCreateAPIView):
 
 class MovieDetailApi(generics.RetrieveUpdateDestroyAPIView):
     queryset = Movie.objects.all()
-    serializer_class = MovieSerializer
+    serializer_class = MovieDetailSerializer
+
+
+class MovieRandomDetailApi(APIView):
+    def get(self, request, format=None):
+        movie = random.choice(Movie.objects.all())
+        serializer = MovieDetailSerializer(movie)
+        return Response(serializer.data)
