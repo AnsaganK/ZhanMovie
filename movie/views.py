@@ -1,4 +1,3 @@
-import git
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -367,15 +366,6 @@ def subscription(request):
         return render(request, "registration/login.html")
     return render(request, "subscription.html")
 
-
-def update_pull(request):
-    if request.method == 'POST':
-        repo = git.Repo('https://github.com/AnsaganK/ZhanMovie')
-        origin = repo.remotes.origin
-        origin.pull()
-        return 'Updated PythonAnywhere successfully', 200
-    else:
-        return 'Wrong event type', 400
 
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
