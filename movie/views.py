@@ -498,7 +498,7 @@ class MovieDetail(APIView):
 
 
 class PaginationMovies(PageNumberPagination):
-    page_size = 4
+    page_size = 5
     max_page_size = 1000
 
     def get_paginated_response(self, data):
