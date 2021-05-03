@@ -517,12 +517,12 @@ class CategoryMovieListApi(APIView):
         try:
             return Category.objects.get(pk=pk)
         except Category.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            raise Http404
 
     def get(self, request, pk, format=None):
         category = self.get_object(pk)
-        movies = category.movies
-        serializer = MovieSerializer(movies)
+        movies = category.movies.all()
+        serializer = MovieSerializer(movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
