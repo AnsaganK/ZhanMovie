@@ -526,11 +526,14 @@ class MovieDetailApi(generics.RetrieveUpdateDestroyAPIView):
 
 class MovieSearchApi(APIView,PaginationMovies):
     def get(self, request, format=None):
-        q = request.GET.get("search")
-        movies = Movie.objects.filter(Q(title__icontains=q)).all()
-        queryset = self.paginate_queryset(movies, request, view=self)
-        serializer = MovieSerializer(queryset, many=True, context={"request": request})
-        return self.get_paginated_response(serializer.data)
+        if request.GET:
+            q = request.GET.get("q")
+            movies = Movie.objects.filter(Q(title__icontains=q)).all()
+            queryset = self.paginate_queryset(movies, request, view=self)
+            serializer = MovieSerializer(queryset, many=True, context={"request": request})
+            return self.get_paginated_response(serializer.data)
+        else:
+            raise Http404
 
 
 class MovieRandomDetailApi(APIView):
