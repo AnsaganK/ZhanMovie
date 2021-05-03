@@ -512,6 +512,20 @@ class MovieRandomDetailApi(APIView):
         return Response(serializer.data)
 
 
+class CategoryMovieListApi(APIView):
+    def get_object(self, pk):
+        try:
+            return Category.objects.get(pk=pk)
+        except Category.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request, pk, format=None):
+        category = self.get_object(pk)
+        movies = category.movies
+        serializer = MovieSerializer(movies)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class CategoryListApi(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
