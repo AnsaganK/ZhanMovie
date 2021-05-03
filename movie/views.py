@@ -17,6 +17,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from rest_framework.pagination import PageNumberPagination
 
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -495,9 +496,26 @@ class MovieDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 '''
 
+
+class PaginationMovies(PageNumberPagination):
+    page_size = 5
+    max_page_size = 1000
+
+    def get_paginated_response(self, data):
+        return Response({
+            'links':{
+                'next': self.get_next_link(),
+                'previous': self.get_previous_link()
+            },
+            'count': self.page.paginator.count,
+            'results': data
+        })
+
 class MovieListApi(generics.ListCreateAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
+    pagination_class = PaginationMovies
+
 
 
 class MovieDetailApi(generics.RetrieveUpdateDestroyAPIView):
@@ -512,7 +530,7 @@ class MovieRandomDetailApi(APIView):
         return Response(serializer.data)
 
 
-class CategoryMovieListApi(APIView):
+class CategoryMovieListApi(APIView, PaginationMovies):
     def get_object(self, pk):
         try:
             return Category.objects.get(pk=pk)
@@ -522,8 +540,9 @@ class CategoryMovieListApi(APIView):
     def get(self, request, pk, format=None):
         category = self.get_object(pk)
         movies = category.movies.all()
-        serializer = MovieSerializer(movies, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        queryset = self.paginate_queryset(movies, request, view=self)
+        serializer = MovieSerializer(queryset, many=True, context={"request": request})
+        return self.get_paginated_response(serializer.data)
 
 
 class CategoryListApi(generics.ListAPIView):
