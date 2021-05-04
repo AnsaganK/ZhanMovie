@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from movie.views import MovieListApi, MovieDetailApi, MovieRandomDetailApi, CategoryListApi, GenreListApi, \
-    CategoryMovieListApi, MovieSearchApi
+    CategoryMovieListApi, MovieSearchApi, MovieGenresFilter
 
 urlpatterns = [
     url(r'^movies/$', MovieListApi.as_view()),
@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^movies/random$', MovieRandomDetailApi.as_view()),
     url(r'^categories/(?P<pk>[0-9]+)/movies/$', CategoryMovieListApi.as_view()),
     url(r'^categories/$', CategoryListApi.as_view()),
+    url(r'^genres/filter$', MovieGenresFilter.as_view()),
     url(r'^genres/$', GenreListApi.as_view()),
 ]
