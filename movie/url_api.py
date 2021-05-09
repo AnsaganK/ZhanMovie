@@ -13,5 +13,5 @@ urlpatterns = [
     url(r'^genres/filter$', MovieGenresFilter.as_view()),
     url(r'^genres/$', GenreListApi.as_view()),
     url(r'^telegram/login$', LoginTelegramApi.as_view()),
-    url(r'^user/(?P<pk>[0-9]+)/movies$', LastMovies.as_view()),
+    url(r'^user/(?P<pk>[0-9]+)/last-movies$', LastMovies.as_view()),
 ]
