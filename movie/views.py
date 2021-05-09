@@ -1,6 +1,7 @@
 import random
 
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
@@ -11,7 +12,8 @@ from rest_framework.views import APIView
 from movie.forms import MovieForm, ReviewForm, UserForm, CategoryForm, GenreForm, MovieImageForm, UserEditForm, \
     ProfileForm
 from movie.models import Category, Movie, Genre, Country, Review, Role, HistoryUser
-from movie.serializers import MovieSerializer, MovieDetailSerializer, CategorySerializer, GenreSerializer
+from movie.serializers import MovieSerializer, MovieDetailSerializer, CategorySerializer, GenreSerializer, \
+    UserSerializer
 
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -578,3 +580,17 @@ class CategoryListApi(generics.ListAPIView):
 class GenreListApi(generics.ListAPIView):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
+
+
+class LoginTelegramApi(APIView):
+    def get(self, request, format=None):
+        password = None
+        if request.GET:
+            user = User.objects.filter(username=request.GET.get("username")).first()
+            if user:
+                password = check_password(request.GET.get("password"), user.password)
+            if user and password:
+                serializer = UserSerializer(user)
+                return Response(serializer.data)
+            else:
+                return JsonResponse({"error": "Невалидные данные"})
