@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from movie.views import MovieListApi, MovieDetailApi, MovieRandomDetailApi, CategoryListApi, GenreListApi, \
-    CategoryMovieListApi, MovieSearchApi, MovieGenresFilter, LoginTelegramApi
+    CategoryMovieListApi, MovieSearchApi, MovieGenresFilter, LoginTelegramApi, LastMovies
 
 urlpatterns = [
     url(r'^movies/$', MovieListApi.as_view()),
@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^genres/filter$', MovieGenresFilter.as_view()),
     url(r'^genres/$', GenreListApi.as_view()),
     url(r'^telegram/login$', LoginTelegramApi.as_view()),
+    url(r'^user/(?P<pk>[0-9]+)/movies$', LastMovies.as_view()),
 ]
