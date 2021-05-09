@@ -150,8 +150,8 @@ class Role(models.Model):
 
 
 class HistoryUser(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="last_movies")
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="view_users")
     date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):

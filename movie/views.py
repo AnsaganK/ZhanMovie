@@ -594,3 +594,15 @@ class LoginTelegramApi(APIView):
                 return Response(serializer.data)
             else:
                 return JsonResponse({"error": "Невалидные данные"})
+
+
+class LastMovies(APIView):
+    def get(self, request, pk, format=None):
+        user = User.objects.filter(pk=pk).first()
+        if user:
+            movies = Movie.objects.filter(view_users__user=user).all()
+            serializer = MovieSerializer(movies, many=True)
+            return Response(serializer.data)
+        return JsonResponse({})
+
+
