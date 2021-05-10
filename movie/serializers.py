@@ -36,7 +36,14 @@ class GenreSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'name_ru', 'name_kk', 'name_en')
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+
 class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
     class Meta:
         model = User
-        fields = ("id", "username", "first_name", "last_name","email")
+        fields = ("id", "username", "first_name", "last_name", "email", "profile")
