@@ -545,7 +545,7 @@ class MovieGenresFilter(APIView, PaginationMovies):
             q = request.GET.getlist("genre")
             movies = Movie.objects.filter(Q(genres__in=q)).distinct()
             queryset = self.paginate_queryset(movies, request, view=self)
-            serializer = MovieSerializer(queryset, many=True, context={"request": request})
+            serializer = MovieSerializer(movies, many=True, context={"request": request})
             return self.get_paginated_response(serializer.data)
         else:
             raise Http404
